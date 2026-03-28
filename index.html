@@ -4,14 +4,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Weekly Munich Grocery Deals</title>
 <style>
+  * { box-sizing: border-box; }
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
          max-width: 680px; margin: 40px auto; padding: 0 20px; color: #1f2937;
          line-height: 1.6; }
-  h1 { color: #059669; margin-bottom: 4px; }
-  h2 { color: #374151; margin-top: 32px; font-size: 18px; }
+  h1 { color: #059669; margin-bottom: 4px; font-size: clamp(20px, 5vw, 28px); }
+  h2 { color: #374151; margin-top: 32px; font-size: clamp(16px, 4vw, 18px); }
   .subtitle { color: #6b7280; margin-top: 0; }
   .btn { display: inline-block; background: #059669; color: #fff; padding: 14px 32px;
-          border-radius: 8px; text-decoration: none; font-size: 18px; font-weight: 600;
+          border-radius: 8px; text-decoration: none; font-size: clamp(16px, 4vw, 18px); font-weight: 600;
           margin: 20px 0; transition: background 0.2s; }
   .btn:hover { background: #047857; }
   .btn small { font-weight: 400; font-size: 13px; opacity: 0.85; display: block;
@@ -24,24 +25,32 @@
                font-size: 13px; font-weight: 600; white-space: nowrap; }
   footer { margin-top: 40px; color: #9ca3af; font-size: 12px;
             border-top: 1px solid #e5e7eb; padding-top: 16px; }
+  @media (max-width: 480px) {
+    body { padding: 0 12px; margin: 20px auto; }
+    .guide { padding: 14px 16px; }
+    .btn { padding: 12px 24px; display: block; text-align: center; }
+  }
 </style>
 </head><body>
 <h1>🛒 Weekly Munich Grocery Deals</h1>
 <p class="subtitle">Personalized shopping list &amp; price tracker for Munich (80331) — updated every week.</p>
 
-<a class="btn" href="report_W13_2026.html">📄 Open Week 13 / 2026 Report<small>1064 KB</small></a>
+<a class="btn" href="report_W13_2026.html">📄 Open Week 13 / 2026 Report<small>1066 KB</small></a>
 
 <div class="guide">
 <h2>📖 How to Use the Weekly Report</h2>
-<p>The report has <strong>three tabs</strong> — click any tab to switch views:</p>
+<p>The report has <strong>four tabs</strong> — click any tab to switch views:</p>
 <ol>
+  <li><span class="tab-name">🔍 Search All</span> — Instant cross-search across <em>every</em> offer
+      (food + non-food). Just type a product name, brand, or store and matching results appear
+      immediately. Great when you know exactly what you're looking for.</li>
   <li><span class="tab-name">📋 All Offers</span> — Every food offer from all stores this week,
       grouped by category (Dairy, Meat, Produce …). Use the <strong>search bar</strong> to find a
       specific product, or click a <strong>category header</strong> to collapse / expand it.
       Includes price-per-unit so you can compare across pack sizes.</li>
   <li><span class="tab-name">🏷️ Non-Food</span> — Household, beauty, electronics and other non-food
-      deals, organized into categories. Use the <strong>store filter buttons</strong> to show only
-      your preferred stores.</li>
+      deals, organized into categories. Use the <strong>search bar</strong> to filter and the
+      expand/collapse buttons to browse by category.</li>
   <li><span class="tab-name">📊 Weekly Analysis</span> — AI-powered smart shopping list.
       Products are rated as <em>Best Deal 🟢</em>, <em>Good Price 🟡</em>, or <em>Skip 🔴</em>
       based on 5-week price history. Only items that beat or match their historical average
@@ -53,8 +62,9 @@
   <li>🟢 <strong>Best Deal</strong> = near all-time low — stock up!</li>
   <li>🟡 <strong>Good Price</strong> = slightly above average — still worth buying</li>
   <li>🔴 <strong>Skip</strong> = above average — wait for a better week</li>
-  <li>Use the store filter in each tab to focus on stores near you</li>
+  <li>Use the search bar in each tab to find products fast</li>
   <li>"Valid From" dates tell you when each offer starts</li>
+  <li>Works great on mobile — scroll tables sideways if needed</li>
 </ul>
 </div>
 
