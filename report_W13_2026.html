@@ -1,7 +1,7 @@
-<html><head><meta charset="utf-8"><style>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><style>
 body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
        color: #1f2937; max-width: 800px; margin: 0 auto; padding: 16px; }
-h1 { color: #059669; } h2 { color: #374151; border-bottom: 2px solid #e5e7eb; padding-bottom: 6px; }
+h1 { color: #059669; font-size: clamp(18px, 4vw, 26px); } h2 { color: #374151; border-bottom: 2px solid #e5e7eb; padding-bottom: 6px; font-size: clamp(15px, 3.5vw, 20px); }
 table { border-collapse: collapse; width: 100%; margin: 12px 0; font-size: 13px; }
 th { background: #f3f4f6; padding: 8px 10px; text-align: left; border-bottom: 2px solid #d1d5db; }
 td { padding: 6px 10px; border-bottom: 1px solid #e5e7eb; }
@@ -11,17 +11,17 @@ td { padding: 6px 10px; border-bottom: 1px solid #e5e7eb; }
           font-weight: 600; }
 .brand-box { border: 1px solid #d1d5db; border-radius: 8px; padding: 12px; margin: 10px 0; }
 .skip-row { color: #9ca3af; }
-.tabs { display: flex; gap: 0; margin: 20px 0 0; border-bottom: 2px solid #059669; }
+.tabs { display: flex; gap: 0; margin: 20px 0 0; border-bottom: 2px solid #059669; flex-wrap: wrap; }
 .tab { padding: 10px 24px; border: none; background: #f3f4f6; cursor: pointer;
         font-size: 15px; font-weight: 600; color: #6b7280; border-radius: 8px 8px 0 0;
-        transition: all 0.2s; }
+        transition: all 0.2s; white-space: nowrap; }
 .tab:hover { background: #e5e7eb; }
 .tab.active { background: #059669; color: #fff; }
 .tab-content { display: none; padding-top: 8px; }
 .tab-content.active { display: block; }
 .search-box { margin: 16px 0; display: flex; align-items: center; gap: 12px; }
 .search-box input { flex: 1; padding: 10px 16px; border: 2px solid #d1d5db; border-radius: 8px;
-                     font-size: 14px; outline: none; transition: border 0.2s; }
+                     font-size: 14px; outline: none; transition: border 0.2s; min-width: 0; }
 .search-box input:focus { border-color: #059669; }
 .search-box span { color: #6b7280; font-size: 13px; white-space: nowrap; }
 .parent-cat { border: 1px solid #e5e7eb; border-radius: 10px; margin: 12px 0; overflow: hidden; }
@@ -46,10 +46,32 @@ td { padding: 6px 10px; border-bottom: 1px solid #e5e7eb; }
 .old-price { text-decoration: line-through; color: #9ca3af; font-size: 11px; }
 .valid-to { color: #6b7280; font-size: 10px; white-space: nowrap; }
 .sticky-search { position: sticky; top: 0; z-index: 10; background: #fff; padding: 8px 0; border-bottom: 1px solid #e5e7eb; }
-.toolbar { display: flex; gap: 8px; margin: 8px 0; }
+.toolbar { display: flex; gap: 8px; margin: 8px 0; flex-wrap: wrap; }
 .toolbar button { padding: 5px 14px; border: 1px solid #d1d5db; border-radius: 6px; background: #fff;
                    cursor: pointer; font-size: 12px; color: #374151; }
 .toolbar button:hover { background: #f3f4f6; }
+/* Responsive */
+@media (max-width: 640px) {
+  body { padding: 8px; font-size: 13px; }
+  .tabs { gap: 2px; }
+  .tab { padding: 8px 10px; font-size: 12px; flex: 1 1 auto; text-align: center; }
+  .search-box { flex-direction: column; gap: 6px; }
+  .search-box input { width: 100%; }
+  .parent-hdr { padding: 10px 12px; font-size: 14px; }
+  .parent-body { padding: 0 8px 12px; }
+  table { font-size: 11px; }
+  .offer-table th, .offer-table td { padding: 4px 4px; }
+  th, td { padding: 4px 6px; }
+  .store-hdr { font-size: 13px; padding: 6px 10px; }
+  h1 { margin-top: 8px; }
+  .toolbar button { padding: 4px 10px; font-size: 11px; }
+  /* Allow horizontal scroll on wide tables */
+  .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+}
+@media (max-width: 400px) {
+  .tab { padding: 6px 6px; font-size: 11px; }
+  .offer-table th, .offer-table td { padding: 3px 3px; font-size: 10px; }
+}
 </style></head><body>
 <h1>🛒 Weekly Grocery Deals — Week 13, 2026</h1>
 <p>📍 Munich (80331) &nbsp;|&nbsp; 5 weeks of price history
