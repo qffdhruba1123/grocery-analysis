@@ -4,38 +4,63 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Weekly Munich Grocery Deals</title>
 <style>
+  :root {
+    --bg: #fff; --bg2: #f9fafb; --bg3: #e5e7eb; --fg: #1f2937; --fg2: #374151;
+    --fg3: #6b7280; --fg4: #9ca3af; --border: #e5e7eb; --green: #059669;
+    --green-dk: #047857; --card-bg: #f9fafb;
+  }
+  [data-theme="dark"] {
+    --bg: #111827; --bg2: #1f2937; --bg3: #374151; --fg: #f3f4f6; --fg2: #e5e7eb;
+    --fg3: #9ca3af; --fg4: #6b7280; --border: #374151; --green: #34d399;
+    --green-dk: #6ee7b7; --card-bg: #1f2937;
+  }
   * { box-sizing: border-box; }
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-         max-width: 680px; margin: 40px auto; padding: 0 20px; color: #1f2937;
-         line-height: 1.6; }
-  h1 { color: #059669; margin-bottom: 4px; font-size: clamp(20px, 5vw, 28px); }
-  h2 { color: #374151; margin-top: 32px; font-size: clamp(16px, 4vw, 18px); }
-  .subtitle { color: #6b7280; margin-top: 0; }
-  .btn { display: inline-block; background: #059669; color: #fff; padding: 14px 32px;
+         max-width: 680px; margin: 40px auto; padding: 0 20px; color: var(--fg);
+         background: var(--bg); line-height: 1.6; transition: background 0.3s, color 0.3s; }
+  h1 { color: var(--green); margin-bottom: 4px; font-size: clamp(20px, 5vw, 28px); }
+  h2 { color: var(--fg2); margin-top: 32px; font-size: clamp(16px, 4vw, 18px); }
+  .subtitle { color: var(--fg3); margin-top: 0; }
+  a { color: var(--green); }
+  .btn { display: inline-block; background: var(--green); color: #fff; padding: 14px 32px;
           border-radius: 8px; text-decoration: none; font-size: clamp(16px, 4vw, 18px); font-weight: 600;
           margin: 20px 0; transition: background 0.2s; }
-  .btn:hover { background: #047857; }
+  .btn:hover { background: var(--green-dk); }
   .btn small { font-weight: 400; font-size: 13px; opacity: 0.85; display: block;
                 margin-top: 4px; }
-  .guide { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 10px;
+  .guide { background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px;
             padding: 20px 24px; margin-top: 28px; }
   .guide ol { padding-left: 20px; }
   .guide li { margin-bottom: 10px; }
-  .tab-name { background: #e5e7eb; padding: 2px 8px; border-radius: 4px;
+  .tab-name { background: var(--bg3); padding: 2px 8px; border-radius: 4px;
                font-size: 13px; font-weight: 600; white-space: nowrap; }
-  footer { margin-top: 40px; color: #9ca3af; font-size: 12px;
-            border-top: 1px solid #e5e7eb; padding-top: 16px; }
+  footer { margin-top: 40px; color: var(--fg4); font-size: 12px;
+            border-top: 1px solid var(--border); padding-top: 16px; }
+  footer a { color: var(--green); }
+  .theme-toggle { position: fixed; top: 12px; right: 12px; z-index: 100; background: var(--bg3); border: 1px solid var(--border);
+                   border-radius: 50%; width: 36px; height: 36px; cursor: pointer; font-size: 18px;
+                   display: flex; align-items: center; justify-content: center; transition: background 0.2s;
+                   box-shadow: 0 2px 6px rgba(0,0,0,0.15); }
+  .theme-toggle:hover { background: var(--border); }
   @media (max-width: 480px) {
     body { padding: 0 12px; margin: 20px auto; }
     .guide { padding: 14px 16px; }
     .btn { padding: 12px 24px; display: block; text-align: center; }
   }
 </style>
+<script>
+(function(){
+  var t=localStorage.getItem('theme');
+  if(t==='dark'||(t!=='light'&&window.matchMedia('(prefers-color-scheme:dark)').matches))
+    document.documentElement.setAttribute('data-theme','dark');
+})()
+</script>
 </head><body>
+<button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark mode" aria-label="Toggle dark mode">🌙</button>
 <h1>🛒 Weekly Munich Grocery Deals</h1>
 <p class="subtitle">Personalized shopping list &amp; price tracker for Munich (80331) — updated every week.</p>
 
-<a class="btn" href="report_W13_2026.html">📄 Open Week 13 / 2026 Report<small>1577 KB</small></a>
+<a class="btn" href="report_W13_2026.html">📄 Open Week 13 / 2026 Report<small>1595 KB</small></a>
 
 <div class="guide">
 <h2>📖 How to Use the Weekly Report</h2>
@@ -72,4 +97,18 @@
   Powered by <a href="https://www.marktguru.de">marktguru.de</a> data
   &nbsp;|&nbsp; Updated weekly
 </footer>
+<script>
+function toggleTheme(){
+  var d=document.documentElement;
+  var cur=d.getAttribute('data-theme');
+  var next=cur==='dark'?'light':'dark';
+  d.setAttribute('data-theme',next);
+  localStorage.setItem('theme',next);
+  document.querySelector('.theme-toggle').textContent=next==='dark'?'☀️':'🌙';
+}
+(function(){
+  var btn=document.querySelector('.theme-toggle');
+  if(btn) btn.textContent=document.documentElement.getAttribute('data-theme')==='dark'?'☀️':'🌙';
+})()
+</script>
 </body></html>
