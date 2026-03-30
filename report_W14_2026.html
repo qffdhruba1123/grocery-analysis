@@ -1,4 +1,5 @@
 <html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><style>
+
 :root {
   --bg: #fff; --bg2: #f9fafb; --bg3: #f3f4f6; --bg4: #eff6ff;
   --fg: #1f2937; --fg2: #374151; --fg3: #6b7280; --fg4: #9ca3af;
@@ -246,7 +247,10 @@ td { padding: 6px 10px; border-bottom: 1px solid var(--border); color: var(--fg)
   .tab { padding: 6px 6px; font-size: 11px; }
   .offer-table th, .offer-table td { padding: 3px 3px; font-size: 10px; }
 }
+
+
 </style>
+
 <script>
 (function(){
   var t=localStorage.getItem('theme');
@@ -254,6 +258,7 @@ td { padding: 6px 10px; border-bottom: 1px solid var(--border); color: var(--fg)
     document.documentElement.setAttribute('data-theme','dark');
 })()
 </script>
+
 </head><body>
 <button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark mode" aria-label="Toggle dark mode">🌙</button>
 <button class="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top" aria-label="Back to top">↑</button>
@@ -266,7 +271,7 @@ td { padding: 6px 10px; border-bottom: 1px solid var(--border); color: var(--fg)
 </div>
 <div class="filter-toast" id="filter-toast"></div>
 <h1>🛒 Weekly Grocery Deals — Week 14, 2026</h1>
-<div class="generated-ts">🕐 Generated March 30, 2026 at 23:59</div>
+<div class="generated-ts">🕐 Generated March 31, 2026 at 00:30</div>
 <div class="tabs">
   <button class="tab" data-tab="tab-global-search" onclick="showTab('tab-global-search',this)">🔍 Search All</button>
   <button class="tab active" data-tab="tab-all-offers" onclick="showTab('tab-all-offers',this)">📋 All Offers (1352)</button>
@@ -950,4 +955,3 @@ function toggleTheme(){{
 // Restore tab from hash on page load
 (function(){{ restoreTabFromHash(); }})();
 </script>
-</body></html>
