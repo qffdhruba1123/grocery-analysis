@@ -42,10 +42,38 @@
                    display: flex; align-items: center; justify-content: center; transition: background 0.2s;
                    box-shadow: 0 2px 6px rgba(0,0,0,0.15); }
   .theme-toggle:hover { background: var(--border); }
+  .changelog-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 18px;
+                     border: 1px solid var(--border); border-radius: 8px; background: var(--card-bg);
+                     cursor: pointer; font-size: 13px; font-weight: 600; color: var(--fg2);
+                     transition: all 0.2s; margin-top: 8px; }
+  .changelog-btn:hover { background: var(--bg3); border-color: var(--green); }
+  .changelog-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+                         z-index: 200; justify-content: center; align-items: center; padding: 20px; }
+  .changelog-overlay.open { display: flex; }
+  .changelog-box { background: var(--bg); border: 1px solid var(--border); border-radius: 12px;
+                     max-width: 520px; width: 100%; max-height: 80vh; overflow-y: auto;
+                     padding: 24px 28px; box-shadow: 0 8px 32px rgba(0,0,0,0.2); position: relative; }
+  .changelog-box h2 { margin-top: 0; color: var(--green); font-size: 18px; }
+  .changelog-close { position: absolute; top: 12px; right: 16px; background: none; border: none;
+                       font-size: 22px; cursor: pointer; color: var(--fg3); padding: 4px; }
+  .changelog-close:hover { color: var(--fg); }
+  .cl-date { font-size: 12px; color: var(--fg3); font-weight: 600; margin-top: 16px; margin-bottom: 4px; }
+  .cl-date:first-of-type { margin-top: 8px; }
+  .cl-list { margin: 0 0 8px; padding-left: 20px; font-size: 13px; color: var(--fg2); }
+  .cl-list li { margin-bottom: 4px; }
+  .cl-tag { display: inline-block; padding: 1px 6px; border-radius: 4px; font-size: 10px;
+              font-weight: 700; text-transform: uppercase; margin-right: 4px; }
+  .cl-new { background: #d1fae5; color: #065f46; }
+  .cl-fix { background: #fef3c7; color: #92400e; }
+  .cl-imp { background: #dbeafe; color: #1e40af; }
+  [data-theme="dark"] .cl-new { background: #064e3b; color: #6ee7b7; }
+  [data-theme="dark"] .cl-fix { background: #78350f; color: #fde68a; }
+  [data-theme="dark"] .cl-imp { background: #1e3a5f; color: #93c5fd; }
   @media (max-width: 480px) {
     body { padding: 0 12px; margin: 20px auto; }
     .guide { padding: 14px 16px; }
     .btn { padding: 12px 24px; display: block; text-align: center; }
+    .changelog-box { padding: 16px 18px; }
   }
 </style>
 <script>
@@ -61,6 +89,41 @@
 <p class="subtitle">Personalized shopping list &amp; price tracker for Munich (80331) — updated every week.</p>
 
 <a class="btn" href="report_W14_2026.html">📄 Open Week 14 / 2026 Report<small>1619 KB</small></a>
+<br>
+<button class="changelog-btn" onclick="document.getElementById('changelog').classList.add('open')">
+  📋 What's New &amp; Recent Updates
+</button>
+
+<div id="changelog" class="changelog-overlay" onclick="if(event.target===this)this.classList.remove('open')">
+<div class="changelog-box">
+  <button class="changelog-close" onclick="document.getElementById('changelog').classList.remove('open')">&times;</button>
+  <h2>📋 Feature Updates &amp; Fixes</h2>
+
+  <div class="cl-date">March 30, 2026</div>
+  <ul class="cl-list">
+    <li><span class="cl-tag cl-new">New</span> Sortable columns in Search All — click any column header to sort ascending/descending</li>
+    <li><span class="cl-tag cl-new">New</span> Preferred store tiebreaker — your favorite stores (Lidl, Penny, Kaufland, Aldi) win when prices are equal</li>
+    <li><span class="cl-tag cl-new">New</span> Changelog button on landing page</li>
+    <li><span class="cl-tag cl-imp">Improved</span> Cleaner report header — removed redundant summary stats</li>
+    <li><span class="cl-tag cl-imp">Improved</span> Landing page guide updated with latest features</li>
+  </ul>
+
+  <div class="cl-date">March 29, 2026</div>
+  <ul class="cl-list">
+    <li><span class="cl-tag cl-fix">Fix</span> Category search now uses word-boundary matching — fixes 19 categories wrongly skipped due to substring false positives (e.g. "Wein" matching inside "Schwein")</li>
+    <li><span class="cl-tag cl-fix">Fix</span> Added store diversity requirement — category search only skips when offers come from 5+ different stores, preventing missed deals from smaller store sets</li>
+    <li><span class="cl-tag cl-imp">Improved</span> More complete offer coverage — previously missed offers from Penny, Kaufland and others now appear correctly</li>
+  </ul>
+
+  <div class="cl-date">March 28, 2026</div>
+  <ul class="cl-list">
+    <li><span class="cl-tag cl-fix">Fix</span> Task Scheduler "directory invalid" error — clarified that the "Start in" field must not contain quotes</li>
+    <li><span class="cl-tag cl-new">New</span> Initial release with 4-tab report: Search All, All Offers, Non-Food, Weekly Analysis</li>
+    <li><span class="cl-tag cl-new">New</span> Brand Watchlist tracking with price history sparklines</li>
+    <li><span class="cl-tag cl-new">New</span> Dark mode support with persistent theme preference</li>
+  </ul>
+</div>
+</div>
 
 <div class="guide">
 <h2>📖 How to Use the Weekly Report</h2>
@@ -68,7 +131,8 @@
 <ol>
   <li><span class="tab-name">🔍 Search All</span> — Instant cross-search across <em>every</em> offer
       (food + non-food). Just type a product name, brand, or store and matching results appear
-      immediately. Great when you know exactly what you're looking for.</li>
+      immediately. <strong>Click any column header to sort</strong> the results by that column.
+      Great when you know exactly what you're looking for.</li>
   <li><span class="tab-name">📋 All Offers</span> — Every food offer from all stores this week,
       grouped by category (Dairy, Meat, Produce …). Use the <strong>search bar</strong> to find a
       specific product, or click a <strong>category header</strong> to collapse / expand it.
@@ -78,9 +142,10 @@
       expand/collapse buttons to browse by category.</li>
   <li><span class="tab-name">📊 Weekly Analysis</span> — AI-powered smart shopping list.
       Products are rated as <em>Best Deal 🟢</em>, <em>Good Price 🟡</em>, or <em>Skip 🔴</em>
-      based on 5-week price history. Only items that beat or match their historical average
+      based on multi-week price history. Only items that beat or match their historical average
       are recommended. The <strong>Brand Watchlist</strong> section tracks specific brands you
-      care about.</li>
+      care about. Your <strong>preferred stores</strong> are used as a tiebreaker when prices
+      are equal.</li>
 </ol>
 <p><strong>💡 Tips:</strong></p>
 <ul>
