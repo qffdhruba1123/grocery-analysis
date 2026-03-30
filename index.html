@@ -88,7 +88,7 @@
 <h1>🛒 Weekly Munich Grocery Deals</h1>
 <p class="subtitle">Personalized shopping list &amp; price tracker for Munich (80331) — updated every week.</p>
 
-<a class="btn" href="report_W14_2026.html">📄 Open Week 14 / 2026 Report<small>1690 KB</small></a>
+<a class="btn" href="report_W14_2026.html">📄 Open Week 14 / 2026 Report<small>1695 KB</small></a>
 <br>
 <button class="changelog-btn" onclick="document.getElementById('changelog').classList.add('open')">
   📋 What's New &amp; Recent Updates
@@ -98,6 +98,15 @@
 <div class="changelog-box">
   <button class="changelog-close" onclick="document.getElementById('changelog').classList.remove('open')">&times;</button>
   <h2>📋 Feature Updates &amp; Fixes</h2>
+
+  <div class="cl-date">March 30, 2026</div>
+  <ul class="cl-list">
+    <li><span class="cl-tag cl-fix">Fix</span> Missing "je kg" / "pro kg" offers — products priced per-kg (like Penny's duck) were silently dropped because the quantity parser didn't handle bare "je kg" patterns</li>
+    <li><span class="cl-tag cl-imp">Improved</span> Quantity parser now handles "je/pro" per-unit patterns: je kg, pro kg, je Bund, je Beutel, etc. — recovers ~9 previously lost food offers</li>
+    <li><span class="cl-tag cl-imp">Improved</span> Store sort order now driven by preferences.json instead of hardcoded list</li>
+    <li><span class="cl-tag cl-imp">Improved</span> Project path is now portable (auto-detected) instead of hardcoded</li>
+    <li><span class="cl-tag cl-imp">Improved</span> Removed dead code: unused cache invalidate(), unused ref_price field from scraper</li>
+  </ul>
 
   <div class="cl-date">March 30, 2026</div>
   <ul class="cl-list">
