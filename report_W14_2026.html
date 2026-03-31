@@ -325,7 +325,7 @@ td { padding: 6px 10px; border-bottom: 1px solid var(--border); color: var(--fg)
 </div>
 <div class="filter-toast" id="filter-toast"></div>
 <h1>🛒 Weekly Grocery Deals — Week 14, 2026</h1>
-<div class="generated-ts">🕐 Generated March 31, 2026 at 18:29</div>
+<div class="generated-ts">🕐 Generated March 31, 2026 at 18:35</div>
 <div class="tabs">
   <button class="tab" data-tab="tab-global-search" onclick="showTab('tab-global-search',this)">🔍 <span class="tab-label">Search All</span></button>
   <button class="tab active" data-tab="tab-all-offers" onclick="showTab('tab-all-offers',this)">📋 <span class="tab-label">All Offers (1438)</span></button>
@@ -931,7 +931,8 @@ function bwScore(query,text){
   var tt=tn.split(' ').filter(function(t){return t.length>0;});
   var fuzzyAll=qt.every(function(tok){
     return tt.some(function(w){
-      if(w.indexOf(tok)>=0||tok.indexOf(w)>=0) return true;
+      if(w.indexOf(tok)>=0) return true;
+      if(tok.indexOf(w)>=0&&w.length>=tok.length*0.6) return true;
       var maxDist=Math.max(1,Math.floor(Math.min(tok.length,w.length)/4));
       return bwLev(tok,w)<=maxDist;
     });
@@ -939,7 +940,7 @@ function bwScore(query,text){
   if(fuzzyAll && qt.length>0) return 70;
   // Partial token match — at least half
   var matchCount=qt.filter(function(tok){
-    return tn.indexOf(tok)>=0||tt.some(function(w){return w.indexOf(tok)>=0||tok.indexOf(w)>=0;});
+    return tn.indexOf(tok)>=0||tt.some(function(w){return w.indexOf(tok)>=0||(tok.indexOf(w)>=0&&w.length>=tok.length*0.6);});
   }).length;
   if(matchCount>=Math.ceil(qt.length*0.5)&&matchCount>0) return 50;
   return 0;
@@ -1014,7 +1015,7 @@ function bwRender(){
     var matches=[];
     offers.forEach(function(o){
       var score=bwScore(name,o.n);
-      if(score>=50) matches.push({o:o,sc:score});
+      if(score>=70) matches.push({o:o,sc:score});
     });
     matches.sort(function(a,b){
       if(b.sc!==a.sc) return b.sc-a.sc;
