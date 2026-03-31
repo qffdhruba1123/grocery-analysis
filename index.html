@@ -47,6 +47,11 @@
                      cursor: pointer; font-size: 13px; font-weight: 600; color: var(--fg2);
                      transition: all 0.2s; margin-top: 8px; }
   .changelog-btn:hover { background: var(--bg3); border-color: var(--green); }
+  .kofi-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 18px;
+               border: 1px solid var(--border); border-radius: 8px; background: var(--card-bg);
+               cursor: pointer; font-size: 13px; font-weight: 600; color: var(--fg2);
+               text-decoration: none; transition: all 0.2s; margin-top: 8px; margin-left: 8px; }
+  .kofi-btn:hover { background: #FF5E5B; color: #fff; border-color: #FF5E5B; }
   .changelog-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5);
                          z-index: 200; justify-content: center; align-items: center; padding: 20px; }
   .changelog-overlay.open { display: flex; }
@@ -93,6 +98,9 @@
 <button class="changelog-btn" onclick="document.getElementById('changelog').classList.add('open')">
   📋 What's New &amp; Recent Updates
 </button>
+<a class="kofi-btn" href="https://ko-fi.com/cueeffeffdee" target="_blank" rel="noopener">
+  ☕ Buy me a coffee
+</a>
 
 <div id="changelog" class="changelog-overlay" onclick="if(event.target===this)this.classList.remove('open')">
 <div class="changelog-box">
@@ -101,6 +109,7 @@
 
   <div class="cl-date">March 31, 2026</div>
   <ul class="cl-list">
+    <li><span class="cl-tag cl-new">New</span> Ko-fi donation link on landing page &amp; footer</li>
     <li><span class="cl-tag cl-imp">Improved</span> Add-to-list button moved to the left side of every table row for easier access</li>
     <li><span class="cl-tag cl-imp">Improved</span> Valid From / Valid Until dates now use compact DD-MM format (no year)</li>
     <li><span class="cl-tag cl-imp">Improved</span> Add button now toggles — click again to remove an item from the shopping list</li>
@@ -233,6 +242,7 @@
 <footer>
   Powered by aggregated grocery offer data
   &nbsp;|&nbsp; Updated weekly
+  &nbsp;|&nbsp; <a href="https://ko-fi.com/cueeffeffdee" target="_blank" rel="noopener">☕ Support this project</a>
 </footer>
 <script>
 function toggleTheme(){
