@@ -319,7 +319,10 @@ td { padding: 6px 10px; border-bottom: 1px solid var(--border); color: var(--fg)
 @media (max-width: 640px) {
   .bw-match-row { flex-direction: column; gap: 2px; padding: 6px 12px; }
   .bw-match-store { min-width: auto; }
-  .bw-add-bar { flex-direction: column; }
+  .bw-add-bar { flex-wrap: wrap; }
+  .bw-add-bar input { flex: 1 1 100%; }
+  .bw-add-btn { flex: 1; }
+  .bw-io-btn { padding: 8px 10px; font-size: 14px; }
   .bw-summary-tbl th:nth-child(4), .bw-summary-tbl td:nth-child(4),
   .bw-summary-tbl th:nth-child(6), .bw-summary-tbl td:nth-child(6) { display: none; }
   .bw-drag-handle { display: none; }
@@ -348,7 +351,7 @@ td { padding: 6px 10px; border-bottom: 1px solid var(--border); color: var(--fg)
 </div>
 <div class="filter-toast" id="filter-toast"></div>
 <h1>🛒 Weekly Grocery Deals — Week 14, 2026</h1>
-<div class="generated-ts">🕐 Generated March 31, 2026 at 20:12</div>
+<div class="generated-ts">🕐 Generated March 31, 2026 at 20:16</div>
 <div class="tabs">
   <button class="tab" data-tab="tab-global-search" onclick="showTab('tab-global-search',this)">🔍 <span class="tab-label">Search All</span></button>
   <button class="tab active" data-tab="tab-all-offers" onclick="showTab('tab-all-offers',this)">📋 <span class="tab-label">All Offers (1438)</span></button>
