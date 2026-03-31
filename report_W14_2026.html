@@ -345,7 +345,7 @@ td { padding: 6px 10px; border-bottom: 1px solid var(--border); color: var(--fg)
 </div>
 <div class="filter-toast" id="filter-toast"></div>
 <h1>🛒 Weekly Grocery Deals — Week 14, 2026</h1>
-<div class="generated-ts">🕐 Generated March 31, 2026 at 19:33</div>
+<div class="generated-ts">🕐 Generated March 31, 2026 at 19:37</div>
 <div class="tabs">
   <button class="tab" data-tab="tab-global-search" onclick="showTab('tab-global-search',this)">🔍 <span class="tab-label">Search All</span></button>
   <button class="tab active" data-tab="tab-all-offers" onclick="showTab('tab-all-offers',this)">📋 <span class="tab-label">All Offers (1438)</span></button>
@@ -987,6 +987,18 @@ function bwNorm(s){
     .replace(/Ä/g,'ae').replace(/Ö/g,'oe').replace(/Ü/g,'ue')
     .replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim();
 }
+function bwTokenize(s){ return s.split(' ').filter(function(t){return t.length>0;}); }
+/* Pre-computed normalized offer cache */
+var _bwOfferCache=null;
+function _bwEnsureCache(){
+  if(_bwOfferCache) return _bwOfferCache;
+  var offers=(typeof _allOffers!=='undefined')?_allOffers:[];
+  _bwOfferCache=offers.map(function(o){
+    var n=bwNorm(o.n);
+    return {o:o,n:n,t:bwTokenize(n)};
+  });
+  return _bwOfferCache;
+}
 function bwLev(a,b){
   if(a.length===0) return b.length;
   if(b.length===0) return a.length;
@@ -1005,15 +1017,18 @@ function bwLev(a,b){
 }
 function bwScore(query,text){
   var qn=bwNorm(query),tn=bwNorm(text);
+  var qt=bwTokenize(qn),tt=bwTokenize(tn);
+  return _bwScoreNorm(qn,tn,qt,tt);
+}
+/* Fast path: accepts pre-normalized text + tokens */
+function _bwScoreNorm(qn,tn,qt,tt){
   if(!qn) return 0;
   // Exact substring match
   if(tn.indexOf(qn)>=0) return 100;
   // All query tokens present as substrings
-  var qt=qn.split(' ').filter(function(t){return t.length>0;});
   var allPresent=qt.every(function(tok){return tn.indexOf(tok)>=0;});
   if(allPresent && qt.length>0) return 90;
-  // Fuzzy token matching — each query token fuzzy-matches some word in text
-  var tt=tn.split(' ').filter(function(t){return t.length>0;});
+  // Fuzzy token matching
   var fuzzyAll=qt.every(function(tok){
     return tt.some(function(w){
       if(w.indexOf(tok)>=0) return true;
@@ -1087,12 +1102,15 @@ function _bwFmtD(d){
   return s;
 }
 function _bwFindMatches(name){
-  var offers=(typeof _allOffers!=='undefined')?_allOffers:[];
+  var cache=_bwEnsureCache();
+  var qn=bwNorm(name);
+  var qt=bwTokenize(qn);
   var matches=[];
-  offers.forEach(function(o){
-    var score=bwScore(name,o.n);
-    if(score>=70) matches.push({o:o,sc:score});
-  });
+  for(var i=0;i<cache.length;i++){
+    var c=cache[i];
+    var score=_bwScoreNorm(qn,c.n,qt,c.t);
+    if(score>=70) matches.push({o:c.o,sc:score});
+  }
   // Sort by score desc, then by PPU asc (primary sort for same-score items)
   matches.sort(function(a,b){
     if(b.sc!==a.sc) return b.sc-a.sc;
@@ -1202,21 +1220,39 @@ function bwRender(){
     html+='</div>';
   });
   container.innerHTML=html;
-  // Sync star buttons in other tabs
-  _bwSyncStars();
+  // Sync star buttons in other tabs (deferred to avoid blocking)
+  var ric=window.requestIdleCallback||function(cb){setTimeout(cb,50);};
+  ric(_bwSyncStars);
 }
 function _bwSyncStars(){
   var items=bwLoad();
+  if(!items.length){
+    document.querySelectorAll('.bw-add-row-btn.bw-added').forEach(function(btn){btn.classList.remove('bw-added');});
+    return;
+  }
+  // Build lookup: lowercase names + normalized names for fast check
+  var lcSet={};
+  var normItems=[];
+  for(var i=0;i<items.length;i++){
+    lcSet[items[i].toLowerCase()]=true;
+    var qn=bwNorm(items[i]);
+    normItems.push({qn:qn,qt:bwTokenize(qn)});
+  }
   document.querySelectorAll('.bw-add-row-btn').forEach(function(btn){
     var tr=btn.closest('tr');
     if(!tr) return;
     var raw=tr.getAttribute('data-product')||'';
     var tmp=document.createElement('span');tmp.innerHTML=raw;
     var name=tmp.textContent.trim();
-    if(!name) return;
+    if(!name){return;}
+    // Fast path: exact lowercase match
+    if(lcSet[name.toLowerCase()]){btn.classList.add('bw-added');return;}
+    // Slow path: fuzzy check (use pre-normalized items)
+    var tn=bwNorm(name);
+    var tt=bwTokenize(tn);
     var found=false;
-    for(var i=0;i<items.length;i++){
-      if(items[i].toLowerCase()===name.toLowerCase()||bwScore(items[i],name)>=90){found=true;break;}
+    for(var i=0;i<normItems.length;i++){
+      if(_bwScoreNorm(normItems[i].qn,tn,normItems[i].qt,tt)>=90){found=true;break;}
     }
     if(found) btn.classList.add('bw-added'); else btn.classList.remove('bw-added');
   });
