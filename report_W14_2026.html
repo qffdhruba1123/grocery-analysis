@@ -261,11 +261,19 @@ td { padding: 6px 10px; border-bottom: 1px solid var(--border); color: var(--fg)
 .bw-add-btn { padding: 10px 20px; border: none; border-radius: 8px; background: var(--green); color: #fff;
               font-size: 14px; font-weight: 600; cursor: pointer; transition: background 0.2s; white-space: nowrap; }
 .bw-add-btn:hover { background: var(--green-dk); }
+.bw-io-btn { padding: 8px 12px; border: 1px solid var(--border2); border-radius: 8px; background: var(--bg3);
+             cursor: pointer; font-size: 16px; transition: all 0.15s; flex-shrink: 0; }
+.bw-io-btn:hover { border-color: var(--green); background: var(--green-bg); }
 .bw-item { border: 1px solid var(--border); border-radius: 10px; margin-bottom: 12px; overflow: hidden;
            background: var(--card-bg); }
 .bw-item-hdr { display: flex; align-items: center; gap: 8px; padding: 12px 16px; background: var(--bg3);
-               border-bottom: 1px solid var(--border); }
+               border-bottom: 1px solid var(--border); user-select: none; }
+.bw-item[draggable='true'] { cursor: default; }
+.bw-item[draggable='true']:hover .bw-drag-handle { opacity: 1; }
+.bw-drag-handle { opacity: 0.3; cursor: grab; font-size: 14px; letter-spacing: -2px; color: var(--fg4); transition: opacity 0.15s; flex-shrink: 0; }
+.bw-collapse-icon { font-size: 10px; color: var(--fg4); flex-shrink: 0; width: 14px; text-align: center; }
 .bw-item-name { font-weight: 700; font-size: 15px; flex: 1; }
+.bw-item-best { font-size: 12px; color: var(--fg3); white-space: nowrap; }
 .bw-item-count { font-size: 12px; color: var(--fg3); white-space: nowrap; }
 .bw-remove { background: none; border: 1px solid var(--border2); border-radius: 50%; width: 28px; height: 28px;
              cursor: pointer; font-size: 18px; color: var(--fg3); display: flex; align-items: center;
@@ -283,6 +291,15 @@ td { padding: 6px 10px; border-bottom: 1px solid var(--border); color: var(--fg)
 .bw-match-ppu { font-size: 11px; color: var(--fg3); white-space: nowrap; }
 .bw-match-valid { font-size: 10px; color: var(--fg4); white-space: nowrap; }
 .bw-more { padding: 8px 16px; font-size: 12px; color: var(--fg3); text-align: center; font-style: italic; }
+/* Summary table */
+.bw-summary { margin-bottom: 16px; }
+.bw-summary-tbl { width: 100%; border-collapse: collapse; font-size: 13px; }
+.bw-summary-tbl th { text-align: left; padding: 6px 10px; border-bottom: 2px solid var(--border); font-size: 11px;
+                      color: var(--fg3); text-transform: uppercase; letter-spacing: 0.5px; }
+.bw-summary-tbl td { padding: 6px 10px; border-bottom: 1px solid var(--border); }
+.bw-summary-tbl tr:hover td { background: var(--green-bg); }
+.bw-summary-price { font-weight: 700; }
+.bw-summary-ppu { font-size: 11px; color: var(--fg3); }
 .bw-empty { text-align: center; padding: 48px 20px; color: var(--fg4); }
 .bw-empty-icon { font-size: 40px; margin-bottom: 8px; }
 .bw-empty-msg { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
@@ -300,6 +317,9 @@ td { padding: 6px 10px; border-bottom: 1px solid var(--border); color: var(--fg)
   .bw-match-row { flex-direction: column; gap: 2px; padding: 6px 12px; }
   .bw-match-store { min-width: auto; }
   .bw-add-bar { flex-direction: column; }
+  .bw-summary-tbl th:nth-child(4), .bw-summary-tbl td:nth-child(4),
+  .bw-summary-tbl th:nth-child(6), .bw-summary-tbl td:nth-child(6) { display: none; }
+  .bw-drag-handle { display: none; }
 }
 
 
@@ -325,7 +345,7 @@ td { padding: 6px 10px; border-bottom: 1px solid var(--border); color: var(--fg)
 </div>
 <div class="filter-toast" id="filter-toast"></div>
 <h1>🛒 Weekly Grocery Deals — Week 14, 2026</h1>
-<div class="generated-ts">🕐 Generated March 31, 2026 at 18:35</div>
+<div class="generated-ts">🕐 Generated March 31, 2026 at 19:33</div>
 <div class="tabs">
   <button class="tab" data-tab="tab-global-search" onclick="showTab('tab-global-search',this)">🔍 <span class="tab-label">Search All</span></button>
   <button class="tab active" data-tab="tab-all-offers" onclick="showTab('tab-all-offers',this)">📋 <span class="tab-label">All Offers (1438)</span></button>
@@ -339,7 +359,11 @@ td { padding: 6px 10px; border-bottom: 1px solid var(--border); color: var(--fg)
 <div class="bw-add-bar">
   <input type="text" id="bw-input" placeholder="Add a brand or product (e.g. Nutella, Barilla, Coca Cola)..." onkeydown="if(event.key==='Enter')bwAdd()">
   <button onclick="bwAdd()" class="bw-add-btn">+ Add</button>
+  <button onclick="bwExport()" class="bw-io-btn" title="Export watchlist">📤</button>
+  <button onclick="document.getElementById('bw-import-file').click()" class="bw-io-btn" title="Import watchlist">📥</button>
+  <input type="file" id="bw-import-file" accept=".json" style="display:none" onchange="bwImport(event)">
 </div>
+<div id="bw-summary" class="bw-summary"></div>
 <div id="bw-container"></div>
 <div id="bw-empty" class="bw-empty" style="display:none">
   <div class="bw-empty-icon">⭐</div>
@@ -894,8 +918,69 @@ function renderCart(){
 }
 /* ── Brand Watchlist (localStorage) ────────────────────────── */
 var BW_KEY='brandWatchlist';
+var BW_COLLAPSED_KEY='bwCollapsed';
 function bwLoad(){try{return JSON.parse(localStorage.getItem(BW_KEY))||[];}catch(e){return [];}}
 function bwSave(items){localStorage.setItem(BW_KEY,JSON.stringify(items));}
+function bwCollapsedLoad(){try{return JSON.parse(localStorage.getItem(BW_COLLAPSED_KEY))||{};}catch(e){return {};}}
+function bwCollapsedSave(obj){localStorage.setItem(BW_COLLAPSED_KEY,JSON.stringify(obj));}
+function bwToggleCollapse(idx){
+  var c=bwCollapsedLoad();
+  c[idx]=!c[idx];
+  bwCollapsedSave(c);
+  bwRender();
+}
+/* Import / Export */
+function bwExport(){
+  var items=bwLoad();
+  if(!items.length){showFilterToast('Watchlist is empty');return;}
+  var blob=new Blob([JSON.stringify(items,null,2)],{type:'application/json'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='brand_watchlist.json';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  showFilterToast('Exported '+items.length+' items');
+}
+function bwImport(ev){
+  var file=ev.target.files[0];
+  if(!file) return;
+  var reader=new FileReader();
+  reader.onload=function(e){
+    try{
+      var imported=JSON.parse(e.target.result);
+      if(!Array.isArray(imported)) throw 'not array';
+      var items=bwLoad();
+      var added=0;
+      imported.forEach(function(name){
+        if(typeof name!=='string') return;
+        name=name.trim();
+        if(!name) return;
+        var norm=name.toLowerCase();
+        if(!items.some(function(it){return it.toLowerCase()===norm;})){items.push(name);added++;}
+      });
+      bwSave(items);
+      bwRender();
+      showFilterToast('Imported '+added+' new item'+(added!==1?'s':''));
+    }catch(ex){showFilterToast('Invalid JSON file');}
+    ev.target.value='';
+  };
+  reader.readAsText(file);
+}
+/* Drag-to-reorder */
+var _bwDragIdx=null;
+function bwDragStart(ev,idx){_bwDragIdx=idx;ev.dataTransfer.effectAllowed='move';ev.target.style.opacity='0.4';}
+function bwDragEnd(ev){ev.target.style.opacity='1';}
+function bwDragOver(ev){ev.preventDefault();ev.dataTransfer.dropEffect='move';}
+function bwDrop(ev,targetIdx){
+  ev.preventDefault();
+  if(_bwDragIdx===null||_bwDragIdx===targetIdx) return;
+  var items=bwLoad();
+  var item=items.splice(_bwDragIdx,1)[0];
+  items.splice(targetIdx,0,item);
+  bwSave(items);
+  _bwDragIdx=null;
+  bwRender();
+}
 function bwNorm(s){
   return s.toLowerCase()
     .replace(/ä/g,'ae').replace(/ö/g,'oe').replace(/ü/g,'ue').replace(/ß/g,'ss')
@@ -957,8 +1042,12 @@ function bwAddFromRow(btn){
   var norm=name.toLowerCase();
   for(var i=0;i<items.length;i++){
     if(items[i].toLowerCase()===norm||bwScore(items[i],name)>=90){
-      btn.classList.add('bw-added');
-      showFilterToast('"'+items[i]+'" already in watchlist');
+      // Toggle: remove from watchlist
+      items.splice(i,1);
+      bwSave(items);
+      btn.classList.remove('bw-added');
+      bwRender();
+      showFilterToast('Removed "'+name+'" from watchlist');
       return;
     }
   }
@@ -997,80 +1086,140 @@ function _bwFmtD(d){
   if(s.length>=10&&s.charAt(4)==='-') return s.substring(8,10)+'-'+s.substring(5,7);
   return s;
 }
+function _bwFindMatches(name){
+  var offers=(typeof _allOffers!=='undefined')?_allOffers:[];
+  var matches=[];
+  offers.forEach(function(o){
+    var score=bwScore(name,o.n);
+    if(score>=70) matches.push({o:o,sc:score});
+  });
+  // Sort by score desc, then by PPU asc (primary sort for same-score items)
+  matches.sort(function(a,b){
+    if(b.sc!==a.sc) return b.sc-a.sc;
+    var ppuA=a.o.ppu!=null?a.o.ppu:99999;
+    var ppuB=b.o.ppu!=null?b.o.ppu:99999;
+    if(ppuA!==ppuB) return ppuA-ppuB;
+    return (a.o.p||999)-(b.o.p||999);
+  });
+  var seen={};
+  return matches.filter(function(m){
+    var key=m.o.s+'||'+m.o.n;
+    if(seen[key]) return false;
+    seen[key]=true;
+    return true;
+  });
+}
 function bwRender(){
   var items=bwLoad();
   var container=document.getElementById('bw-container');
   var empty=document.getElementById('bw-empty');
+  var summaryEl=document.getElementById('bw-summary');
   if(!container) return;
   if(!items.length){
     container.innerHTML='';
     if(empty) empty.style.display='block';
+    if(summaryEl) summaryEl.innerHTML='';
     return;
   }
   if(empty) empty.style.display='none';
-  var offers=(typeof _allOffers!=='undefined')?_allOffers:[];
-  var html='';
+  var collapsed=bwCollapsedLoad();
+  var allData=[];
   items.forEach(function(name,idx){
-    // Find matching offers
-    var matches=[];
-    offers.forEach(function(o){
-      var score=bwScore(name,o.n);
-      if(score>=70) matches.push({o:o,sc:score});
+    var matches=_bwFindMatches(name);
+    var best=matches.length>0?matches[0].o:null;
+    allData.push({name:name,idx:idx,matches:matches,best:best});
+  });
+  // Summary table
+  if(summaryEl && allData.length>0){
+    var sh='<table class="bw-summary-tbl"><thead><tr><th></th><th>Product</th><th>Best Price</th><th>PPU</th><th>Store</th><th>Offers</th></tr></thead><tbody>';
+    allData.forEach(function(d){
+      var bp=d.best&&d.best.p!=null?'€'+d.best.p.toFixed(2):'—';
+      var ppu=d.best&&d.best.ppu!=null?'€'+d.best.ppu.toFixed(2)+(d.best.nu?'/'+d.best.nu.replace('€/',''):''):'—';
+      var store=d.best?_slEnc(d.best.s):'—';
+      sh+='<tr onclick="bwToggleCollapse('+d.idx+');" style="cursor:pointer">';
+      sh+='<td>⭐</td>';
+      sh+='<td>'+_slEnc(d.name)+'</td>';
+      sh+='<td class="bw-summary-price">'+bp+'</td>';
+      sh+='<td class="bw-summary-ppu">'+ppu+'</td>';
+      sh+='<td>'+store+'</td>';
+      sh+='<td>'+d.matches.length+'</td></tr>';
     });
-    matches.sort(function(a,b){
-      if(b.sc!==a.sc) return b.sc-a.sc;
-      return (a.o.p||999)-(b.o.p||999);
-    });
-    // Deduplicate by product+store
-    var seen={};
-    matches=matches.filter(function(m){
-      var key=m.o.s+'||'+m.o.n;
-      if(seen[key]) return false;
-      seen[key]=true;
-      return true;
-    });
-    html+='<div class="bw-item">';
-    html+='<div class="bw-item-hdr">';
+    sh+='</tbody></table>';
+    summaryEl.innerHTML=sh;
+  }
+  // Detail cards
+  var html='';
+  allData.forEach(function(d){
+    var name=d.name,idx=d.idx,matches=d.matches;
+    var isCollapsed=!!collapsed[idx];
+    var bestPpu=d.best&&d.best.ppu!=null?'€'+d.best.ppu.toFixed(2)+(d.best.nu?'/'+d.best.nu.replace('€/',''):''):'';
+    var bestPrice=d.best&&d.best.p!=null?'€'+d.best.p.toFixed(2):'';
+    var bestStore=d.best?_slEnc(d.best.s):'';
+    html+='<div class="bw-item" draggable="true" ondragstart="bwDragStart(event,'+idx+')" ondragend="bwDragEnd(event)" ondragover="bwDragOver(event)" ondrop="bwDrop(event,'+idx+')">';
+    html+='<div class="bw-item-hdr" onclick="bwToggleCollapse('+idx+')" style="cursor:pointer">';
+    html+='<span class="bw-drag-handle" title="Drag to reorder">⠿</span>';
+    html+='<span class="bw-collapse-icon">'+(isCollapsed?'▶':'▼')+'</span>';
     html+='<span class="bw-item-name">⭐ '+_slEnc(name)+'</span>';
+    if(isCollapsed && bestPrice) html+='<span class="bw-item-best">'+bestPrice+(bestPpu?' ('+bestPpu+')':'')+' @ '+bestStore+'</span>';
     html+='<span class="bw-item-count">'+matches.length+' offer'+(matches.length!==1?'s':'')+'</span>';
-    html+='<button class="bw-remove" onclick="bwRemove('+idx+')" title="Remove from watchlist">&times;</button>';
+    html+='<button class="bw-remove" onclick="event.stopPropagation();bwRemove('+idx+')" title="Remove from watchlist">&times;</button>';
     html+='</div>';
-    if(matches.length===0){
-      html+='<div class="bw-no-match">No matching offers this week</div>';
-    } else {
-      html+='<div class="bw-matches">';
-      var shown=matches.slice(0,10);
-      shown.forEach(function(m){
-        var o=m.o;
-        var priceStr=o.p!=null?'€'+o.p.toFixed(2):'—';
-        if(o.op&&o.op>(o.p||0)){
-          var pct=((o.op-o.p)/o.op*100).toFixed(0);
-          priceStr='<span class="old-price">€'+o.op.toFixed(2)+'</span> €'+o.p.toFixed(2)+' <span class="discount">–'+pct+'%</span>';
+    if(!isCollapsed){
+      if(matches.length===0){
+        html+='<div class="bw-no-match">No matching offers this week</div>';
+      } else {
+        html+='<div class="bw-matches">';
+        var shown=matches.slice(0,10);
+        shown.forEach(function(m){
+          var o=m.o;
+          var priceStr=o.p!=null?'€'+o.p.toFixed(2):'—';
+          if(o.op&&o.op>(o.p||0)){
+            var pct=((o.op-o.p)/o.op*100).toFixed(0);
+            priceStr='<span class="old-price">€'+o.op.toFixed(2)+'</span> €'+o.p.toFixed(2)+' <span class="discount">–'+pct+'%</span>';
+          }
+          var ppuStr=(o.ppu!=null&&o.nu)?'€'+o.ppu.toFixed(2)+'/'+o.nu.replace('€/',''):'';
+          var validStr='';
+          if(o.vf||o.vt){
+            var vf=o.vf?_bwFmtD(o.vf):''; var vt=o.vt?_bwFmtD(o.vt):'';
+            validStr=vf&&vt?vf+' → '+vt:(vf||vt);
+          }
+          html+='<div class="bw-match-row">';
+          html+='<span class="bw-match-store">🏪 '+_slEnc(o.s)+'</span>';
+          html+='<span class="bw-match-product">'+_slEnc(o.n);
+          if(o.q) html+=' <small class="qty-sub">'+_slEnc(o.q)+'</small>';
+          html+='</span>';
+          html+='<span class="bw-match-price">'+priceStr+'</span>';
+          if(ppuStr) html+='<span class="bw-match-ppu">'+ppuStr+'</span>';
+          if(validStr) html+='<span class="bw-match-valid">'+validStr+'</span>';
+          html+='</div>';
+        });
+        if(matches.length>10){
+          html+='<div class="bw-more">'+(matches.length-10)+' more offer'+(matches.length-10!==1?'s':'')+' not shown</div>';
         }
-        var ppuStr=(o.ppu!=null&&o.nu)?'€'+o.ppu.toFixed(2)+'/'+o.nu.replace('€/',''):'';
-        var validStr='';
-        if(o.vf||o.vt){
-          var vf=o.vf?_bwFmtD(o.vf):''; var vt=o.vt?_bwFmtD(o.vt):'';
-          validStr=vf&&vt?vf+' → '+vt:(vf||vt);
-        }
-        html+='<div class="bw-match-row">';
-        html+='<span class="bw-match-store">🏪 '+_slEnc(o.s)+'</span>';
-        html+='<span class="bw-match-product">'+_slEnc(o.n);
-        if(o.q) html+=' <small class="qty-sub">'+_slEnc(o.q)+'</small>';
-        html+='</span>';
-        html+='<span class="bw-match-price">'+priceStr+'</span>';
-        if(ppuStr) html+='<span class="bw-match-ppu">'+ppuStr+'</span>';
-        if(validStr) html+='<span class="bw-match-valid">'+validStr+'</span>';
         html+='</div>';
-      });
-      if(matches.length>10){
-        html+='<div class="bw-more">'+(matches.length-10)+' more offer'+(matches.length-10!==1?'s':'')+' not shown</div>';
       }
-      html+='</div>';
     }
     html+='</div>';
   });
   container.innerHTML=html;
+  // Sync star buttons in other tabs
+  _bwSyncStars();
+}
+function _bwSyncStars(){
+  var items=bwLoad();
+  document.querySelectorAll('.bw-add-row-btn').forEach(function(btn){
+    var tr=btn.closest('tr');
+    if(!tr) return;
+    var raw=tr.getAttribute('data-product')||'';
+    var tmp=document.createElement('span');tmp.innerHTML=raw;
+    var name=tmp.textContent.trim();
+    if(!name) return;
+    var found=false;
+    for(var i=0;i<items.length;i++){
+      if(items[i].toLowerCase()===name.toLowerCase()||bwScore(items[i],name)>=90){found=true;break;}
+    }
+    if(found) btn.classList.add('bw-added'); else btn.classList.remove('bw-added');
+  });
 }
 // Init badge + watchlist on load
 document.addEventListener('DOMContentLoaded',function(){_slUpdateBadge();_slSyncButtons();bwRender();});
