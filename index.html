@@ -37,6 +37,10 @@
   footer { margin-top: 40px; color: var(--fg4); font-size: 12px;
             border-top: 1px solid var(--border); padding-top: 16px; }
   footer a { color: var(--green); }
+  .impressum { background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px;
+                padding: 16px 20px; margin-top: 20px; font-size: 13px; color: var(--fg3); }
+  .impressum summary { cursor: pointer; font-weight: 600; color: var(--fg2); font-size: 13px; }
+  .impressum p { margin: 8px 0 4px; }
   .theme-toggle { position: fixed; top: 12px; right: 12px; z-index: 100; background: var(--bg3); border: 1px solid var(--border);
                    border-radius: 50%; width: 36px; height: 36px; cursor: pointer; font-size: 18px;
                    display: flex; align-items: center; justify-content: center; transition: background 0.2s;
@@ -238,6 +242,14 @@
   <li>Works great on mobile — scroll tables sideways if needed</li>
 </ul>
 </div>
+
+<details class="impressum">
+  <summary>Impressum (Legal Notice)</summary>
+  <p><strong>Quazi Fahim Faisal Dhruba</strong></p>
+  <p>Munich, 80809, Germany</p>
+  <p>Email: <a href="mailto:qffdhrubahome@gmail.com">qffdhrubahome@gmail.com</a></p>
+  <p style="margin-top:12px; font-size:12px; color:var(--fg4);">This is a personal, non-commercial hobby project. Content is provided as-is with no warranty. Prices shown are sourced from publicly available retailer data and may not reflect current in-store prices.</p>
+</details>
 
 <footer>
   Powered by aggregated grocery offer data
