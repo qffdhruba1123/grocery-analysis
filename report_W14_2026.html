@@ -227,6 +227,18 @@ td { padding: 6px 10px; border-bottom: 1px solid var(--border); color: var(--fg)
                  display: flex; align-items: center; justify-content: center; transition: background 0.2s;
                  box-shadow: 0 2px 6px rgba(0,0,0,0.15); }
 .theme-toggle:hover { background: var(--border); }
+/* Store color accents — left border on table rows */
+tr[data-store*="ALDI"] { border-left: 3px solid #1e3a7d; }
+tr[data-store*="Lidl"] { border-left: 3px solid #0050aa; }
+tr[data-store*="REWE"] { border-left: 3px solid #cc071e; }
+tr[data-store*="EDEKA"] { border-left: 3px solid #1a3e72; }
+tr[data-store*="PENNY"] { border-left: 3px solid #cd1719; }
+tr[data-store*="Netto"] { border-left: 3px solid #d40000; }
+tr[data-store*="Kaufland"] { border-left: 3px solid #e10915; }
+tr[data-store*="dm"] { border-left: 3px solid #e0004d; }
+tr[data-store="DM"] { border-left: 3px solid #e0004d; }
+tr[data-store*="Rossmann"] { border-left: 3px solid #c8102e; }
+tr[data-store*="üller"] { border-left: 3px solid #003da5; }
 /* Responsive */
 @media (max-width: 640px) {
   body { padding: 8px; font-size: 13px; }
@@ -273,7 +285,7 @@ td { padding: 6px 10px; border-bottom: 1px solid var(--border); color: var(--fg)
 </div>
 <div class="filter-toast" id="filter-toast"></div>
 <h1>🛒 Weekly Grocery Deals — Week 14, 2026</h1>
-<div class="generated-ts">🕐 Generated March 31, 2026 at 02:36</div>
+<div class="generated-ts">🕐 Generated March 31, 2026 at 02:41</div>
 <div class="tabs">
   <button class="tab" data-tab="tab-global-search" onclick="showTab('tab-global-search',this)">🔍 Search All</button>
   <button class="tab active" data-tab="tab-all-offers" onclick="showTab('tab-all-offers',this)">📋 All Offers (1352)</button>
