@@ -97,7 +97,7 @@
 <h1>🛒 Weekly Munich Grocery Deals</h1>
 <p class="subtitle">Personalized shopping list &amp; price tracker for Munich — updated every week.</p>
 
-<a class="btn" href="report_W14_2026.html">📄 Open Week 14 / 2026 Report<small>3677 KB</small></a>
+<a class="btn" href="report_W14_2026.html">📄 Open Week 14 / 2026 Report<small>3103 KB</small></a>
 <br>
 <button class="changelog-btn" onclick="document.getElementById('changelog').classList.add('open')">
   📋 What's New &amp; Recent Updates
@@ -110,6 +110,16 @@
 <div class="changelog-box">
   <button class="changelog-close" onclick="document.getElementById('changelog').classList.remove('open')">&times;</button>
   <h2>📋 Feature Updates &amp; Fixes</h2>
+
+  <div class="cl-date">March 31, 2026</div>
+  <ul class="cl-list">
+    <li><span class="cl-tag cl-imp">Improved</span> Site performance — event delegation replaces 10,000+ inline onclick handlers, cutting ~570 KB from each report</li>
+    <li><span class="cl-tag cl-imp">Improved</span> CSS content-visibility &amp; contain — browser skips layout/paint for off-screen tabs and sections</li>
+    <li><span class="cl-tag cl-imp">Improved</span> Passive scroll listener with rAF throttling — smoother scrolling on large reports</li>
+    <li><span class="cl-tag cl-fix">Fix</span> Added &lt;!DOCTYPE html&gt; to report — forces standards mode for faster rendering</li>
+    <li><span class="cl-tag cl-imp">Improved</span> Cached HTML entity decoder — eliminates DOM thrashing in watchlist star sync</li>
+    <li><span class="cl-tag cl-imp">Improved</span> DNS prefetch for store icon CDN — faster favicon loading</li>
+  </ul>
 
   <div class="cl-date">March 31, 2026</div>
   <ul class="cl-list">
