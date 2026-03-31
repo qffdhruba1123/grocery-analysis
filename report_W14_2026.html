@@ -205,7 +205,8 @@ td { padding: 6px 10px; border-bottom: 1px solid var(--border); color: var(--fg)
             display: inline-flex; align-items: center; justify-content: center; transition: all 0.15s;
             padding: 0; flex-shrink: 0; }
 .add-btn:hover { background: var(--green); color: #fff; border-color: var(--green); }
-.add-btn.added { background: var(--green); color: #fff; border-color: var(--green); pointer-events: none; }
+.add-btn.added { background: var(--green); color: #fff; border-color: var(--green); }
+.add-btn.added:hover { background: var(--red); border-color: var(--red); }
 /* Dashboard */
 .dash { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin: 16px 0; }
 .dash-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; text-align: center; }
@@ -271,7 +272,7 @@ td { padding: 6px 10px; border-bottom: 1px solid var(--border); color: var(--fg)
 </div>
 <div class="filter-toast" id="filter-toast"></div>
 <h1>🛒 Weekly Grocery Deals — Week 14, 2026</h1>
-<div class="generated-ts">🕐 Generated March 31, 2026 at 02:10</div>
+<div class="generated-ts">🕐 Generated March 31, 2026 at 02:12</div>
 <div class="tabs">
   <button class="tab" data-tab="tab-global-search" onclick="showTab('tab-global-search',this)">🔍 Search All</button>
   <button class="tab active" data-tab="tab-all-offers" onclick="showTab('tab-all-offers',this)">📋 All Offers (1352)</button>
@@ -813,7 +814,14 @@ function addToList(btn){
   if(!product) return;
   var items=_slLoad();
   var id=_slId(store,product);
-  if(items.some(function(it){return it.id===id;})){showFilterToast('Already in list');return;}
+  if(items.some(function(it){return it.id===id;})){
+    items=items.filter(function(it){return it.id!==id;});
+    _slSave(items);
+    btn.classList.remove('added');btn.textContent='+';
+    _slUpdateBadge();renderCart();
+    showFilterToast('Removed from shopping list');
+    return;
+  }
   items.push({id:id,store:store,product:product,price:price,qty:qty,bought:false,ts:Date.now()});
   _slSave(items);
   btn.classList.add('added');btn.textContent='✓';
