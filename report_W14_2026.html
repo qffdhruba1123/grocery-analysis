@@ -336,12 +336,20 @@ td { padding: 6px 10px; border-bottom: 1px solid var(--border); color: var(--fg)
 .so-layout { display: grid; grid-template-columns: 280px 1fr; gap: 20px; margin-top: 16px; }
 .so-sidebar { border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; background: var(--card-bg);
               max-height: 75vh; overflow-y: auto; position: sticky; top: 60px; }
-.so-sidebar-hdr { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
-.so-sidebar-hdr span { font-weight: 700; font-size: 14px; color: var(--fg); }
-.so-sidebar-actions { display: flex; gap: 6px; }
+.so-sidebar-hdr { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+.so-sidebar-hdr span:first-child { font-weight: 700; font-size: 14px; color: var(--fg); }
+.so-sel-badge { background: var(--green); color: #fff; font-size: 11px; font-weight: 700; padding: 1px 7px;
+                border-radius: 10px; min-width: 20px; text-align: center; display: none; }
+.so-sel-badge.visible { display: inline-block; }
+.so-sidebar-actions { display: flex; gap: 6px; margin-left: auto; }
 .so-sidebar-actions button { padding: 3px 10px; border: 1px solid var(--border2); border-radius: 6px;
                               background: var(--bg); cursor: pointer; font-size: 11px; color: var(--fg2); }
 .so-sidebar-actions button:hover { background: var(--bg3); }
+.so-search-wrap { margin-bottom: 10px; }
+.so-search-wrap input { width: 100%; padding: 6px 10px; border: 1px solid var(--border2); border-radius: 6px;
+                         font-size: 12px; outline: none; background: var(--input-bg); color: var(--fg);
+                         box-sizing: border-box; }
+.so-search-wrap input:focus { border-color: var(--green); }
 .so-parent-group { margin-bottom: 10px; }
 .so-parent-label { font-size: 12px; font-weight: 700; color: var(--fg2); padding: 4px 0; cursor: pointer;
                     display: flex; align-items: center; gap: 6px; user-select: none; }
@@ -353,9 +361,20 @@ td { padding: 6px 10px; border-bottom: 1px solid var(--border); color: var(--fg)
 .so-cat-item input[type=checkbox] { accent-color: var(--green); width: 13px; height: 13px; cursor: pointer; }
 .so-cat-item .so-cat-count { font-size: 10px; color: var(--fg4); }
 .so-results { min-height: 200px; }
+.so-sort-bar { display: flex; gap: 6px; margin-bottom: 12px; align-items: center; flex-wrap: wrap; }
+.so-sort-bar .so-sort-label { font-size: 11px; color: var(--fg3); font-weight: 600; }
+.so-sort-btn { padding: 4px 12px; border: 1px solid var(--border2); border-radius: 6px; background: var(--bg);
+               cursor: pointer; font-size: 11px; font-weight: 600; color: var(--fg2); transition: all 0.15s; }
+.so-sort-btn:hover { border-color: var(--green); color: var(--green); }
+.so-sort-btn.active { background: var(--green); color: #fff; border-color: var(--green); }
 .so-selected-count { font-size: 13px; color: var(--fg3); margin-bottom: 12px; font-weight: 600; }
 .so-optimal-banner { background: var(--green-bg); border: 1px solid var(--green); border-radius: 10px;
                       padding: 14px 18px; margin-bottom: 16px; }
+.so-combo-banner { background: var(--blue-bg); border: 1px solid var(--border); border-radius: 10px;
+                    padding: 12px 16px; margin-bottom: 16px; font-size: 13px; }
+.so-combo-banner .so-combo-title { font-weight: 700; color: var(--fg2); margin-bottom: 4px; }
+.so-combo-banner .so-combo-cost { font-size: 16px; font-weight: 700; color: var(--fg); }
+.so-combo-banner .so-combo-note { font-size: 11px; color: var(--fg3); margin-top: 2px; }
 .so-optimal-banner .so-opt-title { font-weight: 700; font-size: 14px; color: var(--green); margin-bottom: 4px; }
 .so-optimal-banner .so-opt-cost { font-size: 20px; font-weight: 700; color: var(--fg); }
 .so-optimal-banner .so-opt-note { font-size: 11px; color: var(--fg3); margin-top: 2px; }
@@ -429,7 +448,7 @@ td { padding: 6px 10px; border-bottom: 1px solid var(--border); color: var(--fg)
 </div>
 <div class="filter-toast" id="filter-toast"></div>
 <h1>🛒 Weekly Grocery Deals — Week 14, 2026</h1>
-<div class="generated-ts">🕐 Generated April 05, 2026 at 00:53</div>
+<div class="generated-ts">🕐 Generated April 05, 2026 at 01:04</div>
 <div class="tabs">
   <button class="tab" data-tab="tab-global-search" onclick="showTab('tab-global-search',this)">🔍 <span class="tab-label">Search All</span></button>
   <button class="tab active" data-tab="tab-all-offers" onclick="showTab('tab-all-offers',this)">📋 <span class="tab-label">All Offers (1244)</span></button>
@@ -443,12 +462,13 @@ td { padding: 6px 10px; border-bottom: 1px solid var(--border); color: var(--fg)
 <p style="color:var(--fg4);font-size:12px;margin-top:0">💡 Convenience vs. savings — see how much extra a single-store trip costs compared to cherry-picking the cheapest offer per category across all stores.</p>
 <div class="so-layout">
   <div class="so-sidebar" id="so-sidebar">
-    <div class="so-sidebar-hdr"><span>📋 Shopping List</span>
+    <div class="so-sidebar-hdr"><span>📋 Categories</span><span class="so-sel-badge" id="so-sel-badge">0</span>
       <div class="so-sidebar-actions">
         <button onclick="soSelectAll()">All</button>
         <button onclick="soClearAll()">Clear</button>
       </div>
     </div>
+    <div class="so-search-wrap"><input type="text" id="so-search" placeholder="🔍 Filter categories..." oninput="soFilterCats()"></div>
     <div id="so-categories"></div>
   </div>
   <div class="so-results" id="so-results">
@@ -1495,20 +1515,22 @@ function _bwSyncStars(){
 document.addEventListener('DOMContentLoaded',function(){_slUpdateBadge();_slSyncButtons();bwRender();_soInit();});
 /* ── Store Optimizer ──────────────────────────────────────── */
 var SO_KEY='storeOptimizerCats';
+var SO_SORT_KEY='soSortMode';
 var _soBuilt=false;
 function _soLoadSel(){try{return JSON.parse(localStorage.getItem(SO_KEY))||[];}catch(e){return [];}}
 function _soSaveSel(arr){localStorage.setItem(SO_KEY,JSON.stringify(arr));}
+function _soLoadSort(){return localStorage.getItem(SO_SORT_KEY)||'coverage';}
+function _soSaveSort(m){localStorage.setItem(SO_SORT_KEY,m);}
 /* Build category picker from _allOffers data */
 function _soInit(){
   if(_soBuilt) return;
   _soBuilt=true;
   var offers=(typeof _allOffers!=='undefined')?_allOffers:[];
   if(!offers.length) return;
-  // Collect food categories: {parentCat: {childCat: offerCount}}
   var tree={};
   for(var i=0;i<offers.length;i++){
     var o=offers[i];
-    if(o.nf) continue; // skip non-food
+    if(o.nf) continue;
     var cat=o.c||'';
     var pc=o.pc||'📦 Sonstige / Other';
     if(!cat) continue;
@@ -1526,7 +1548,7 @@ function _soInit(){
     var pc=parents[pi];
     var cats=Object.keys(tree[pc]).sort(function(a,b){return a.localeCompare(b,'de');});
     var allChecked=cats.every(function(c){return !!savedSet[c];});
-    h+='<div class="so-parent-group">';
+    h+='<div class="so-parent-group" data-so-pg>';
     h+='<label class="so-parent-label"><input type="checkbox" data-so-parent="'+_esc(pc)+'"'+(allChecked?' checked':'')+' onchange="soToggleParent(this)"> '+_esc(pc)+'</label>';
     h+='<div class="so-cat-list">';
     for(var ci=0;ci<cats.length;ci++){
@@ -1538,37 +1560,59 @@ function _soInit(){
     h+='</div></div>';
   }
   container.innerHTML=h;
-  // Run analysis if categories were pre-selected
+  _soUpdateBadge();
   if(saved.length>0) soRunAnalysis();
 }
+function _soUpdateBadge(){
+  var n=_soLoadSel().length;
+  var badge=document.getElementById('so-sel-badge');
+  if(badge){badge.textContent=n;badge.classList.toggle('visible',n>0);}
+}
+function soFilterCats(){
+  var q=(document.getElementById('so-search').value||'').toLowerCase();
+  var qd=deUmlaut(q);
+  document.querySelectorAll('#so-categories .so-cat-item').forEach(function(lbl){
+    var text=lbl.textContent.toLowerCase();
+    var match=!q||text.indexOf(q)>=0||deUmlaut(text).indexOf(qd)>=0;
+    lbl.style.display=match?'':'none';
+  });
+  document.querySelectorAll('#so-categories [data-so-pg]').forEach(function(grp){
+    var vis=[].slice.call(grp.querySelectorAll('.so-cat-item')).some(function(l){return l.style.display!=='none';});
+    grp.style.display=vis?'':'none';
+  });
+}
 function soSelectAll(){
-  document.querySelectorAll('#so-categories input[data-so-cat]').forEach(function(cb){cb.checked=true;});
-  document.querySelectorAll('#so-categories input[data-so-parent]').forEach(function(cb){cb.checked=true;});
+  document.querySelectorAll('#so-categories .so-cat-item').forEach(function(lbl){
+    if(lbl.style.display!=='none') lbl.querySelector('input').checked=true;
+  });
+  document.querySelectorAll('#so-categories input[data-so-parent]').forEach(function(cb){
+    var grp=cb.closest('[data-so-pg]');
+    var children=grp.querySelectorAll('input[data-so-cat]');
+    cb.checked=[].slice.call(children).every(function(c){return c.checked;});
+  });
   soToggleCat();
 }
 function soClearAll(){
   document.querySelectorAll('#so-categories input[data-so-cat]').forEach(function(cb){cb.checked=false;});
   document.querySelectorAll('#so-categories input[data-so-parent]').forEach(function(cb){cb.checked=false;});
   _soSaveSel([]);
+  _soUpdateBadge();
   soRunAnalysis();
 }
 function soToggleParent(parentCb){
-  var pc=parentCb.getAttribute('data-so-parent');
   var checked=parentCb.checked;
-  // Toggle all child checkboxes under this parent
-  var group=parentCb.closest('.so-parent-group');
+  var group=parentCb.closest('[data-so-pg]');
   group.querySelectorAll('input[data-so-cat]').forEach(function(cb){cb.checked=checked;});
   soToggleCat();
 }
 function soToggleCat(){
-  // Collect selected categories
   var sel=[];
   document.querySelectorAll('#so-categories input[data-so-cat]:checked').forEach(function(cb){
     sel.push(cb.getAttribute('data-so-cat'));
   });
   _soSaveSel(sel);
-  // Update parent checkboxes
-  document.querySelectorAll('#so-categories .so-parent-group').forEach(function(grp){
+  _soUpdateBadge();
+  document.querySelectorAll('#so-categories [data-so-pg]').forEach(function(grp){
     var parentCb=grp.querySelector('input[data-so-parent]');
     var children=grp.querySelectorAll('input[data-so-cat]');
     var allChk=[].slice.call(children).every(function(c){return c.checked;});
@@ -1576,10 +1620,31 @@ function soToggleCat(){
   });
   soRunAnalysis();
 }
+function soSetSort(mode){
+  SO_SORT_KEY_VAL=mode;
+  _soSaveSort(mode);
+  document.querySelectorAll('.so-sort-btn').forEach(function(b){
+    b.classList.toggle('active',b.getAttribute('data-sort')===mode);
+  });
+  soRunAnalysis();
+}
+var SO_SORT_KEY_VAL;
+(function(){SO_SORT_KEY_VAL=_soLoadSort();})();
 var _soEmptyEl=null;
 function _soGetEmpty(){
   if(!_soEmptyEl) _soEmptyEl=document.getElementById('so-empty');
   return _soEmptyEl;
+}
+/* Fair optimal cost for a specific set of categories */
+function _soOptimalForCats(offers,catSet){
+  var best={};
+  for(var i=0;i<offers.length;i++){
+    var o=offers[i]; if(o.nf) continue;
+    var cat=o.c; if(!cat||!catSet[cat]) continue;
+    var p=o.p; if(p==null) continue;
+    if(!best[cat]||p<best[cat]) best[cat]=p;
+  }
+  var t=0; for(var c in best) t+=best[c]; return t;
 }
 function soRunAnalysis(){
   var sel=_soLoadSel();
@@ -1594,56 +1659,79 @@ function soRunAnalysis(){
   var offers=(typeof _allOffers!=='undefined')?_allOffers:[];
   var selSet={};
   for(var k=0;k<sel.length;k++) selSet[sel[k]]=true;
-  // For each store, find cheapest offer per selected category
-  // storeData[storeIdx] = { items: {cat: {offer, price}}, coverage, total }
   var storeData={};
-  var optimalPerCat={}; // cat -> {price, offer} absolute cheapest across all stores
+  var optimalPerCat={};
   for(var i=0;i<offers.length;i++){
-    var o=offers[i];
-    if(o.nf) continue;
-    var cat=o.c;
-    if(!cat||!selSet[cat]) continue;
-    var price=o.p;
-    if(price==null) continue;
+    var o=offers[i]; if(o.nf) continue;
+    var cat=o.c; if(!cat||!selSet[cat]) continue;
+    var price=o.p; if(price==null) continue;
     var si=o.si;
-    // Track per-store cheapest
     if(!storeData[si]) storeData[si]={items:{},coverage:0,total:0};
     var sd=storeData[si];
-    if(!sd.items[cat]||price<sd.items[cat].price){
-      sd.items[cat]={price:price,offer:o};
-    }
-    // Track absolute cheapest
-    if(!optimalPerCat[cat]||price<optimalPerCat[cat].price){
-      optimalPerCat[cat]={price:price,offer:o};
-    }
+    if(!sd.items[cat]||price<sd.items[cat].price) sd.items[cat]={price:price,offer:o};
+    if(!optimalPerCat[cat]||price<optimalPerCat[cat].price) optimalPerCat[cat]={price:price,offer:o};
   }
-  // Calculate optimal total and per-store totals
-  var optimalTotal=0;
-  var optimalStores={};// count stores needed
+  var optimalTotal=0; var optimalStores={};
   for(var cat in optimalPerCat){
     optimalTotal+=optimalPerCat[cat].price;
     var st=_stores[optimalPerCat[cat].offer.si];
     optimalStores[st]=(optimalStores[st]||0)+1;
   }
   var optStoreCount=Object.keys(optimalStores).length;
-  // Build ranked store list
   var ranked=[];
   for(var si in storeData){
     var sd=storeData[si];
     sd.coverage=Object.keys(sd.items).length;
     sd.total=0;
     for(var cat in sd.items) sd.total+=sd.items[cat].price;
+    /* fair premium: compare only categories this store covers */
+    var fairOpt=_soOptimalForCats(offers,sd.items);
+    sd.premium=fairOpt>0?((sd.total/fairOpt-1)*100):0;
     ranked.push({si:parseInt(si),data:sd});
   }
-  // Sort: coverage desc, then total asc
+  var mode=SO_SORT_KEY_VAL||'coverage';
   ranked.sort(function(a,b){
-    if(b.data.coverage!==a.data.coverage) return b.data.coverage-a.data.coverage;
-    return a.data.total-b.data.total;
+    if(mode==='price') return a.data.total-b.data.total||b.data.coverage-a.data.coverage;
+    if(mode==='premium') return a.data.premium-b.data.premium||b.data.coverage-a.data.coverage;
+    return b.data.coverage!==a.data.coverage?b.data.coverage-a.data.coverage:a.data.total-b.data.total;
   });
-  // Build HTML
+  /* 2-store combo: best pair from top 8 */
+  var comboHtml='';
+  if(sel.length>2&&ranked.length>=2){
+    var top=ranked.slice(0,Math.min(8,ranked.length));
+    var bestCombo=null;
+    for(var a=0;a<top.length;a++){
+      for(var b2=a+1;b2<top.length;b2++){
+        var merged={}; var cTotal=0; var cCov=0;
+        for(var cat in top[a].data.items){merged[cat]=top[a].data.items[cat];}
+        for(var cat2 in top[b2].data.items){
+          if(!merged[cat2]||top[b2].data.items[cat2].price<merged[cat2].price) merged[cat2]=top[b2].data.items[cat2];
+        }
+        for(var c in merged){cTotal+=merged[c].price;cCov++;}
+        if(!bestCombo||cCov>bestCombo.cov||(cCov===bestCombo.cov&&cTotal<bestCombo.total)){
+          bestCombo={a:top[a].si,b:top[b2].si,cov:cCov,total:cTotal};
+        }
+      }
+    }
+    if(bestCombo&&bestCombo.cov>ranked[0].data.coverage){
+      var cPrem=optimalTotal>0?((bestCombo.total/optimalTotal-1)*100):0;
+      comboHtml='<div class="so-combo-banner">';
+      comboHtml+='<strong>🤝 Best 2-Store Combo:</strong> '+_esc(_stores[bestCombo.a])+' + '+_esc(_stores[bestCombo.b]);
+      comboHtml+=' — '+bestCombo.cov+'/'+sel.length+' categories, €'+bestCombo.total.toFixed(2);
+      comboHtml+=' <span class="so-store-premium '+(cPrem<=5?'good':cPrem<=15?'ok':'high')+'">'+(cPrem>=0?'+':'')+cPrem.toFixed(1)+'%</span>';
+      comboHtml+='</div>';
+    }
+  }
+  /* Sort bar */
+  var sortHtml='<div class="so-sort-bar">Sort: ';
+  var modes=[['coverage','Coverage'],['price','Price'],['premium','Premium']];
+  for(var mi=0;mi<modes.length;mi++){
+    sortHtml+='<button class="so-sort-btn'+(mode===modes[mi][0]?' active':'')+'" data-sort="'+modes[mi][0]+'" onclick="soSetSort(''+modes[mi][0]+'')">'+modes[mi][1]+'</button>';
+  }
+  sortHtml+='</div>';
   var h='';
   h+='<div class="so-selected-count">📊 '+sel.length+' categor'+(sel.length===1?'y':'ies')+' selected · '+ranked.length+' stores compared</div>';
-  // Optimal banner
+  h+=sortHtml;
   h+='<div class="so-optimal-banner">';
   h+='<div class="so-opt-title">🏆 Optimal (cherry-pick cheapest per category)</div>';
   h+='<div class="so-opt-cost">€'+optimalTotal.toFixed(2)+'</div>';
@@ -1652,14 +1740,13 @@ function soRunAnalysis(){
   for(var s in optimalStores) storeNames.push(s+' ('+optimalStores[s]+')');
   h+=storeNames.join(', ');
   h+='</div></div>';
-  // Store cards
+  h+=comboHtml;
   for(var ri=0;ri<ranked.length;ri++){
     var r=ranked[ri];
     var store=_stores[r.si];
     var cov=r.data.coverage;
     var total=r.data.total;
-    var prem=optimalTotal>0?((total/optimalTotal-1)*100):0;
-    // Adjust premium for partial coverage — extrapolate roughly
+    var prem=r.data.premium;
     var covPct=Math.round(cov/sel.length*100);
     var covClass=covPct>=80?'full':covPct>=50?'partial':'low';
     var premClass=prem<=5?'good':prem<=15?'ok':'high';
@@ -1671,12 +1758,9 @@ function soRunAnalysis(){
     h+='<div class="so-store-stats">';
     h+='<span class="so-store-coverage '+covClass+'">'+cov+'/'+sel.length+' ('+covPct+'%)</span>';
     h+='<span class="so-store-cost">€'+total.toFixed(2)+'</span>';
-    if(cov===sel.length){
-      h+='<span class="so-store-premium '+premClass+'">'+(prem>=0?'+':'')+prem.toFixed(1)+'%</span>';
-    }
+    h+='<span class="so-store-premium '+premClass+'">'+(prem>=0?'+':'')+prem.toFixed(1)+'%</span>';
     h+='<span class="so-store-collapse">▶</span>';
     h+='</div></div>';
-    // Detail body — show items per category
     h+='<div class="so-store-body'+(ri===0?' open':'')+'">';
     h+='<table class="so-store-items"><thead><tr><th>Category</th><th>Product</th><th>Price</th><th>€/Unit</th><th>vs Best</th></tr></thead><tbody>';
     for(var ci=0;ci<sel.length;ci++){
@@ -1694,8 +1778,7 @@ function soRunAnalysis(){
         h+='<td>'+_esc(item.offer.n)+(item.offer.q?'<br><small class="qty-sub">'+_esc(item.offer.q)+'</small>':'')+'</td>';
         h+='<td>€'+item.price.toFixed(2)+'</td>';
         h+='<td>'+ppuStr+'</td>';
-        h+='<td>'+diffStr+'</td>';
-        h+='</tr>';
+        h+='<td>'+diffStr+'</td></tr>';
       } else {
         h+='<tr class="so-missing"><td>'+_esc(cat)+'</td><td colspan="4">— Not available at this store</td></tr>';
       }
@@ -1703,7 +1786,6 @@ function soRunAnalysis(){
     h+='</tbody></table></div></div>';
   }
   results.innerHTML=h;
-  // Auto-expand first card
   _gc('store-optimizer/run');
 }
 function soToggleCard(hdr){
