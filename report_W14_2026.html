@@ -66,10 +66,10 @@ td { padding: 6px 10px; border-bottom: 1px solid var(--border); color: var(--fg)
 .clear-chips.visible { display: inline; }
 /* Timestamp */
 .generated-ts { font-size: 11px; color: var(--fg4); margin-top: 2px; }
-.tabs { display: flex; gap: 0; margin: 20px 0 0; border-bottom: 2px solid var(--green); flex-wrap: wrap; }
-.tab { padding: 10px 24px; border: none; background: var(--bg3); cursor: pointer;
-        font-size: 15px; font-weight: 600; color: var(--fg3); border-radius: 8px 8px 0 0;
-        transition: all 0.2s; white-space: nowrap; }
+.tabs { display: flex; gap: 0; margin: 20px 0 0; border-bottom: 2px solid var(--green); overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.tab { padding: 10px 16px; border: none; background: var(--bg3); cursor: pointer;
+        font-size: 14px; font-weight: 600; color: var(--fg3); border-radius: 8px 8px 0 0;
+        transition: all 0.2s; white-space: nowrap; flex-shrink: 0; }
 .tab:hover { background: var(--border); }
 .tab.active { background: var(--green); color: #fff; }
 .tab-content { display: none; padding-top: 8px; content-visibility: auto; contain-intrinsic-size: auto 5000px; }
@@ -429,7 +429,7 @@ td { padding: 6px 10px; border-bottom: 1px solid var(--border); color: var(--fg)
 </div>
 <div class="filter-toast" id="filter-toast"></div>
 <h1>🛒 Weekly Grocery Deals — Week 14, 2026</h1>
-<div class="generated-ts">🕐 Generated April 05, 2026 at 00:45</div>
+<div class="generated-ts">🕐 Generated April 05, 2026 at 00:53</div>
 <div class="tabs">
   <button class="tab" data-tab="tab-global-search" onclick="showTab('tab-global-search',this)">🔍 <span class="tab-label">Search All</span></button>
   <button class="tab active" data-tab="tab-all-offers" onclick="showTab('tab-all-offers',this)">📋 <span class="tab-label">All Offers (1244)</span></button>
