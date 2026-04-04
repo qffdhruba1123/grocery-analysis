@@ -118,48 +118,31 @@
     <li><span class="cl-tag cl-fix">Fix</span> Added missing &lt;/body&gt;&lt;/html&gt; — report HTML is now fully valid</li>
     <li><span class="cl-tag cl-imp">Improved</span> Shopping list footer shows checked-off count so you know what's excluded from the total</li>
     <li><span class="cl-tag cl-imp">Improved</span> Store &amp; price filter chips now have ARIA role="button" and keyboard support (Enter/Space)</li>
-  </ul>
-
-  <div class="cl-date">March 31, 2026</div>
-  <ul class="cl-list">
-    <li><span class="cl-tag cl-imp">Improved</span> Site performance — event delegation replaces 10,000+ inline onclick handlers, cutting ~570 KB from each report</li>
-    <li><span class="cl-tag cl-imp">Improved</span> CSS content-visibility &amp; contain — browser skips layout/paint for off-screen tabs and sections</li>
-    <li><span class="cl-tag cl-imp">Improved</span> Passive scroll listener with rAF throttling — smoother scrolling on large reports</li>
-    <li><span class="cl-tag cl-fix">Fix</span> Added &lt;!DOCTYPE html&gt; to report — forces standards mode for faster rendering</li>
-    <li><span class="cl-tag cl-imp">Improved</span> Cached HTML entity decoder — eliminates DOM thrashing in watchlist star sync</li>
-    <li><span class="cl-tag cl-imp">Improved</span> DNS prefetch for store icon CDN — faster favicon loading</li>
+    <li><span class="cl-tag cl-fix">Fix</span> Mobile search bar no longer overflows the viewport</li>
+    <li><span class="cl-tag cl-imp">Improved</span> Changelog dates consolidated — cleaner, easier to scan</li>
   </ul>
 
   <div class="cl-date">March 31, 2026</div>
   <ul class="cl-list">
     <li><span class="cl-tag cl-new">New</span> Import/Export watchlist — back up or transfer your watchlist as JSON between devices</li>
     <li><span class="cl-tag cl-new">New</span> Collapse/expand watchlist items — click headers to toggle, collapsed items show best price summary</li>
-    <li><span class="cl-tag cl-imp">Improved</span> ⭐ button is now a toggle — click again to remove an item from the watchlist</li>
-    <li><span class="cl-tag cl-imp">Improved</span> Offers sorted by price-per-unit within each watchlist item for better comparison</li>
     <li><span class="cl-tag cl-new">New</span> Watchlist summary table at the top with best price, PPU, and store for quick overview</li>
     <li><span class="cl-tag cl-new">New</span> Drag to reorder watchlist items — grab the handle to rearrange priority</li>
-  </ul>
-
-  <div class="cl-date">March 31, 2026</div>
-  <ul class="cl-list">
-    <li><span class="cl-tag cl-imp">Improved</span> Brand Watchlist now tracks full product names (not just brands) with fuzzy matching for week-to-week name variations</li>
-    <li><span class="cl-tag cl-imp">Improved</span> ⭐ button moved to the right side of every offer row for cleaner layout</li>
-    <li><span class="cl-tag cl-fix">Fix</span> Brand Watchlist fuzzy matching no longer returns unrelated products — raised match threshold and tightened substring checks</li>
-  </ul>
-
-  <div class="cl-date">March 31, 2026</div>
-  <ul class="cl-list">
     <li><span class="cl-tag cl-new">New</span> Brand Watchlist tab replaces Weekly Analysis — add brand-specific items you care about and see matching offers each week, powered by client-side fuzzy matching</li>
     <li><span class="cl-tag cl-new">New</span> Watchlist persists in localStorage — your tracked brands carry over across weekly reports automatically</li>
     <li><span class="cl-tag cl-new">New</span> Fuzzy matching engine — handles minor variations in offer names between weeks (e.g. "Nutella 750g" matches "Nutella Nuss-Nougat-Creme 750g")</li>
     <li><span class="cl-tag cl-new">New</span> ⭐ button on every offer row — click it to add the brand to your watchlist directly from Search All, All Offers, or Non-Food tabs</li>
-  </ul>
-
-  <div class="cl-date">March 31, 2026</div>
-  <ul class="cl-list">
-    <li><span class="cl-tag cl-imp">Improved</span> Tabs collapse to icons on mobile — active tab stays full-sized with label</li>
-    <li><span class="cl-tag cl-fix">Fix</span> Unbranded products no longer show "thisisnobrand123" — now displayed as "Unbranded"</li>
     <li><span class="cl-tag cl-new">New</span> Ko-fi donation link on landing page &amp; footer</li>
+    <li><span class="cl-tag cl-imp">Improved</span> Site performance — event delegation replaces 10,000+ inline onclick handlers, cutting ~570 KB from each report</li>
+    <li><span class="cl-tag cl-imp">Improved</span> CSS content-visibility &amp; contain — browser skips layout/paint for off-screen tabs and sections</li>
+    <li><span class="cl-tag cl-imp">Improved</span> Passive scroll listener with rAF throttling — smoother scrolling on large reports</li>
+    <li><span class="cl-tag cl-imp">Improved</span> Cached HTML entity decoder — eliminates DOM thrashing in watchlist star sync</li>
+    <li><span class="cl-tag cl-imp">Improved</span> DNS prefetch for store icon CDN — faster favicon loading</li>
+    <li><span class="cl-tag cl-imp">Improved</span> ⭐ button is now a toggle — click again to remove an item from the watchlist</li>
+    <li><span class="cl-tag cl-imp">Improved</span> Offers sorted by price-per-unit within each watchlist item for better comparison</li>
+    <li><span class="cl-tag cl-imp">Improved</span> Brand Watchlist now tracks full product names (not just brands) with fuzzy matching for week-to-week name variations</li>
+    <li><span class="cl-tag cl-imp">Improved</span> ⭐ button moved to the right side of every offer row for cleaner layout</li>
+    <li><span class="cl-tag cl-imp">Improved</span> Tabs collapse to icons on mobile — active tab stays full-sized with label</li>
     <li><span class="cl-tag cl-imp">Improved</span> Add-to-list button moved to the left side of every table row for easier access</li>
     <li><span class="cl-tag cl-imp">Improved</span> Valid From / Valid Until dates now use compact DD-MM format (no year)</li>
     <li><span class="cl-tag cl-imp">Improved</span> Add button now toggles — click again to remove an item from the shopping list</li>
@@ -167,6 +150,14 @@
     <li><span class="cl-tag cl-imp">Improved</span> Quantity / description shown as subtle subtitle under product name (works on mobile too)</li>
     <li><span class="cl-tag cl-imp">Improved</span> Removed redundant Non-Food store &amp; category summary bars</li>
     <li><span class="cl-tag cl-imp">Improved</span> "Skip This Week" section collapsed by default (click to expand)</li>
+    <li><span class="cl-tag cl-imp">Improved</span> 12 category keyword expansions — Fisch (matjes, rollmops), Käse (schnittkäse, hartkäse, weichkäse), Brot (laugenstange, laugenbrezel), Wurst (knacker), Kartoffeln (pommes, kroketten), Bohnen (erbsen, rote bete), Speiseöl (kokosöl, leinöl, sesamöl, walnussöl), Schweinefleisch (spießbraten, osterbraten)</li>
+    <li><span class="cl-tag cl-imp">Improved</span> Piece-unit fallback for weight categories — cucumbers, kiwis, melons sold "per Stück" now normalize to €/10St instead of being dropped (~27 offers recovered)</li>
+    <li><span class="cl-tag cl-imp">Improved</span> Better exclude patterns — käseschnecke from Käse, kartoffelstampfer from Kartoffeln, robo fisch from Fisch</li>
+    <li><span class="cl-tag cl-fix">Fix</span> Added &lt;!DOCTYPE html&gt; to report — forces standards mode for faster rendering</li>
+    <li><span class="cl-tag cl-fix">Fix</span> Brand Watchlist fuzzy matching no longer returns unrelated products — raised match threshold and tightened substring checks</li>
+    <li><span class="cl-tag cl-fix">Fix</span> Unbranded products no longer show "thisisnobrand123" — now displayed as "Unbranded"</li>
+    <li><span class="cl-tag cl-fix">Fix</span> Zahnpasta no longer misclassified as Pasta; Kaffee-Milch excluded from Coffee</li>
+    <li><span class="cl-tag cl-fix">Fix</span> Cappuccino/Kakao/Trinkschokolade moved from Essig to Kaffee category</li>
   </ul>
 
   <div class="cl-date">March 30, 2026</div>
@@ -174,60 +165,14 @@
     <li><span class="cl-tag cl-new">New</span> Shopping list — click + on any offer to add it to a persistent shopping list stored on your device (localStorage)</li>
     <li><span class="cl-tag cl-new">New</span> Shopping list drawer — slide-out panel groups items by store with checkboxes to tick off while shopping</li>
     <li><span class="cl-tag cl-new">New</span> "Add All" button on Smart Shopping List — one click adds all recommended items to the shopping list</li>
-    <li><span class="cl-tag cl-imp">Improved</span> Shopping list persists across page refreshes and browser sessions</li>
-  </ul>
-
-  <div class="cl-date">March 30, 2026</div>
-  <ul class="cl-list">
     <li><span class="cl-tag cl-new">New</span> "No results" empty state — friendly message with icon when search/filters yield zero matches</li>
     <li><span class="cl-tag cl-new">New</span> Active filter summary bar — persistent bar below search shows all active filters with individual × remove buttons</li>
     <li><span class="cl-tag cl-new">New</span> Store icons in filter chips — each store chip shows the store's favicon</li>
-    <li><span class="cl-tag cl-imp">Improved</span> Search debounce (150ms) — smoother filtering on large offer lists, reduces unnecessary re-renders</li>
-    <li><span class="cl-tag cl-imp">Improved</span> Store chips limited to 10 main stores (ALDI, Lidl, REWE, etc.) — reduces clutter from sub-brands</li>
-  </ul>
-
-  <div class="cl-date">March 30, 2026</div>
-  <ul class="cl-list">
     <li><span class="cl-tag cl-new">New</span> Scroll-to-top button — floating ↑ button appears after scrolling down, smooth-scrolls back to top</li>
     <li><span class="cl-tag cl-new">New</span> URL hash routing — tab state preserved in URL (#search, #all-offers, etc.) so refresh/bookmarks keep your place</li>
     <li><span class="cl-tag cl-new">New</span> Filter toast notifications — brief popup shows which stores/price filters are active</li>
     <li><span class="cl-tag cl-new">New</span> "✕ Clear" link next to store filter chips — one-click reset for all active store filters</li>
     <li><span class="cl-tag cl-new">New</span> "Last generated" timestamp in report header</li>
-    <li><span class="cl-tag cl-imp">Improved</span> Zebra striping on all offer tables for better readability</li>
-    <li><span class="cl-tag cl-imp">Improved</span> Smooth expand/collapse animation on category sections (replaces instant show/hide)</li>
-  </ul>
-
-  <div class="cl-date">March 31, 2026</div>
-  <ul class="cl-list">
-    <li><span class="cl-tag cl-fix">Fix</span> Zahnpasta no longer misclassified as Pasta; Kaffee-Milch excluded from Coffee</li>
-    <li><span class="cl-tag cl-fix">Fix</span> Cappuccino/Kakao/Trinkschokolade moved from Essig to Kaffee category</li>
-    <li><span class="cl-tag cl-imp">Improved</span> 12 category keyword expansions — Fisch (matjes, rollmops), Käse (schnittkäse, hartkäse, weichkäse), Brot (laugenstange, laugenbrezel), Wurst (knacker), Kartoffeln (pommes, kroketten), Bohnen (erbsen, rote bete), Speiseöl (kokosöl, leinöl, sesamöl, walnussöl), Schweinefleisch (spießbraten, osterbraten)</li>
-    <li><span class="cl-tag cl-imp">Improved</span> Piece-unit fallback for weight categories — cucumbers, kiwis, melons sold "per Stück" now normalize to €/10St instead of being dropped (~27 offers recovered)</li>
-    <li><span class="cl-tag cl-imp">Improved</span> Better exclude patterns — käseschnecke from Käse, kartoffelstampfer from Kartoffeln, robo fisch from Fisch</li>
-  </ul>
-
-  <div class="cl-date">March 30, 2026</div>
-  <ul class="cl-list">
-    <li><span class="cl-tag cl-fix">Fix</span> German thousand separator bug — "je 1.000 g" was parsed as 1g instead of 1000g, causing absurd prices (e.g. Penny Imkerhonig shown at 7990 €/kg instead of 7.99 €/kg)</li>
-    <li><span class="cl-tag cl-fix">Fix</span> Weight/volume crossover — products sold by weight in volume-type categories (pesto 190g, olives 350g) were silently dropped. Recovers ~30 offers</li>
-    <li><span class="cl-tag cl-fix">Fix</span> Classification false positives — WC Ente no longer appears as duck, Bierkäse not listed as beer, Espresso Martini not as coffee, Haferdrink not as oats, Sahneheringsfilets not as cream</li>
-    <li><span class="cl-tag cl-fix">Fix</span> Wachteleier (quail eggs) now correctly classified under Eggs instead of Duck &amp; Goose</li>
-    <li><span class="cl-tag cl-imp">Improved</span> Non-grocery store filter — hardware, furniture, garden and pet stores (OBI, HORNBACH, XXXLutz, Fressnapf, etc.) excluded from category search results</li>
-    <li><span class="cl-tag cl-imp">Improved</span> Saftorangen no longer misclassified as juice — excluded from Saft category</li>
-    <li><span class="cl-tag cl-imp">Improved</span> Overall offer recovery: dropped offers reduced from 175 to 88 (50% fewer lost offers)</li>
-  </ul>
-
-  <div class="cl-date">March 30, 2026</div>
-  <ul class="cl-list">
-    <li><span class="cl-tag cl-fix">Fix</span> Missing "je kg" / "pro kg" offers — products priced per-kg (like Penny's duck) were silently dropped because the quantity parser didn't handle bare "je kg" patterns</li>
-    <li><span class="cl-tag cl-imp">Improved</span> Quantity parser now handles "je/pro" per-unit patterns: je kg, pro kg, je Bund, je Beutel, etc. — recovers ~9 previously lost food offers</li>
-    <li><span class="cl-tag cl-imp">Improved</span> Store sort order now driven by preferences.json instead of hardcoded list</li>
-    <li><span class="cl-tag cl-imp">Improved</span> Project path is now portable (auto-detected) instead of hardcoded</li>
-    <li><span class="cl-tag cl-imp">Improved</span> Removed dead code: unused cache invalidate(), unused ref_price field from scraper</li>
-  </ul>
-
-  <div class="cl-date">March 30, 2026</div>
-  <ul class="cl-list">
     <li><span class="cl-tag cl-new">New</span> Store filter chips on Search All, All Offers &amp; Non-Food tabs — click store pills to filter by store instantly</li>
     <li><span class="cl-tag cl-new">New</span> Search highlight in Search All — matching text is highlighted in yellow as you type</li>
     <li><span class="cl-tag cl-new">New</span> "Cheapest Only" toggle on All Offers — collapses each category to show only the #1 best-price offer</li>
@@ -235,10 +180,26 @@
     <li><span class="cl-tag cl-new">New</span> Sortable columns in Search All — click any column header to sort ascending/descending</li>
     <li><span class="cl-tag cl-new">New</span> Preferred store tiebreaker — your favorite stores (Lidl, Penny, Kaufland, Aldi) win when prices are equal</li>
     <li><span class="cl-tag cl-new">New</span> Changelog button on landing page</li>
+    <li><span class="cl-tag cl-imp">Improved</span> Shopping list persists across page refreshes and browser sessions</li>
+    <li><span class="cl-tag cl-imp">Improved</span> Search debounce (150ms) — smoother filtering on large offer lists, reduces unnecessary re-renders</li>
+    <li><span class="cl-tag cl-imp">Improved</span> Store chips limited to 10 main stores (ALDI, Lidl, REWE, etc.) — reduces clutter from sub-brands</li>
+    <li><span class="cl-tag cl-imp">Improved</span> Zebra striping on all offer tables for better readability</li>
+    <li><span class="cl-tag cl-imp">Improved</span> Smooth expand/collapse animation on category sections (replaces instant show/hide)</li>
+    <li><span class="cl-tag cl-imp">Improved</span> Non-grocery store filter — hardware, furniture, garden and pet stores (OBI, HORNBACH, XXXLutz, Fressnapf, etc.) excluded from category search results</li>
+    <li><span class="cl-tag cl-imp">Improved</span> Saftorangen no longer misclassified as juice — excluded from Saft category</li>
+    <li><span class="cl-tag cl-imp">Improved</span> Overall offer recovery: dropped offers reduced from 175 to 88 (50% fewer lost offers)</li>
+    <li><span class="cl-tag cl-imp">Improved</span> Quantity parser now handles "je/pro" per-unit patterns: je kg, pro kg, je Bund, je Beutel, etc. — recovers ~9 previously lost food offers</li>
+    <li><span class="cl-tag cl-imp">Improved</span> Store sort order now driven by preferences.json instead of hardcoded list</li>
+    <li><span class="cl-tag cl-imp">Improved</span> Project path is now portable (auto-detected) instead of hardcoded</li>
+    <li><span class="cl-tag cl-imp">Improved</span> Removed dead code: unused cache invalidate(), unused ref_price field from scraper</li>
     <li><span class="cl-tag cl-imp">Improved</span> Cleaner report header — removed redundant summary stats</li>
     <li><span class="cl-tag cl-imp">Improved</span> Landing page guide updated with latest features</li>
+    <li><span class="cl-tag cl-fix">Fix</span> German thousand separator bug — "je 1.000 g" was parsed as 1g instead of 1000g, causing absurd prices (e.g. Penny Imkerhonig shown at 7990 €/kg instead of 7.99 €/kg)</li>
+    <li><span class="cl-tag cl-fix">Fix</span> Weight/volume crossover — products sold by weight in volume-type categories (pesto 190g, olives 350g) were silently dropped. Recovers ~30 offers</li>
+    <li><span class="cl-tag cl-fix">Fix</span> Classification false positives — WC Ente no longer appears as duck, Bierkäse not listed as beer, Espresso Martini not as coffee, Haferdrink not as oats, Sahneheringsfilets not as cream</li>
+    <li><span class="cl-tag cl-fix">Fix</span> Wachteleier (quail eggs) now correctly classified under Eggs instead of Duck &amp; Goose</li>
+    <li><span class="cl-tag cl-fix">Fix</span> Missing "je kg" / "pro kg" offers — products priced per-kg (like Penny's duck) were silently dropped because the quantity parser didn't handle bare "je kg" patterns</li>
   </ul>
-
   <div class="cl-date">March 29, 2026</div>
   <ul class="cl-list">
     <li><span class="cl-tag cl-fix">Fix</span> Category search now uses word-boundary matching — fixes 19 categories wrongly skipped due to substring false positives (e.g. "Wein" matching inside "Schwein")</li>
