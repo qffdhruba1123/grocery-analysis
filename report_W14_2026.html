@@ -448,7 +448,7 @@ td { padding: 6px 10px; border-bottom: 1px solid var(--border); color: var(--fg)
 </div>
 <div class="filter-toast" id="filter-toast"></div>
 <h1>🛒 Weekly Grocery Deals — Week 14, 2026</h1>
-<div class="generated-ts">🕐 Generated April 05, 2026 at 01:04</div>
+<div class="generated-ts">🕐 Generated April 05, 2026 at 01:08</div>
 <div class="tabs">
   <button class="tab" data-tab="tab-global-search" onclick="showTab('tab-global-search',this)">🔍 <span class="tab-label">Search All</span></button>
   <button class="tab active" data-tab="tab-all-offers" onclick="showTab('tab-all-offers',this)">📋 <span class="tab-label">All Offers (1244)</span></button>
@@ -1726,7 +1726,7 @@ function soRunAnalysis(){
   var sortHtml='<div class="so-sort-bar">Sort: ';
   var modes=[['coverage','Coverage'],['price','Price'],['premium','Premium']];
   for(var mi=0;mi<modes.length;mi++){
-    sortHtml+='<button class="so-sort-btn'+(mode===modes[mi][0]?' active':'')+'" data-sort="'+modes[mi][0]+'" onclick="soSetSort(''+modes[mi][0]+'')">'+modes[mi][1]+'</button>';
+    sortHtml+='<button class="so-sort-btn'+(mode===modes[mi][0]?' active':'')+'" data-sort="'+modes[mi][0]+'" onclick="soSetSort(\''+modes[mi][0]+'\')">'+modes[mi][1]+'</button>';
   }
   sortHtml+='</div>';
   var h='';
