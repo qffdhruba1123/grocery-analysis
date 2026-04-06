@@ -51,11 +51,12 @@
                      cursor: pointer; font-size: 13px; font-weight: 600; color: var(--fg2);
                      transition: all 0.2s; margin-top: 8px; }
   .changelog-btn:hover { background: var(--bg3); border-color: var(--green); }
-  .kofi-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 18px;
+  .kofi-btn, .bmc-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 18px;
                border: 1px solid var(--border); border-radius: 8px; background: var(--card-bg);
                cursor: pointer; font-size: 13px; font-weight: 600; color: var(--fg2);
                text-decoration: none; transition: all 0.2s; margin-top: 8px; margin-left: 8px; }
   .kofi-btn:hover { background: #FF5E5B; color: #fff; border-color: #FF5E5B; }
+  .bmc-btn:hover { background: #FFDD00; color: #000; border-color: #FFDD00; }
   .changelog-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5);
                          z-index: 200; justify-content: center; align-items: center; padding: 20px; }
   .changelog-overlay.open { display: flex; }
@@ -102,8 +103,11 @@
 <button class="changelog-btn" onclick="document.getElementById('changelog').classList.add('open')">
   📋 What's New &amp; Recent Updates
 </button>
-<a class="kofi-btn" href="https://ko-fi.com/cueeffeffdee" target="_blank" rel="noopener">
+<a class="bmc-btn" href="https://buymeacoffee.com/qffdhruba" target="_blank" rel="noopener">
   ☕ Buy me a coffee
+</a>
+<a class="kofi-btn" href="https://ko-fi.com/cueeffeffdee" target="_blank" rel="noopener">
+  ☕ Ko-fi
 </a>
 
 <div id="changelog" class="changelog-overlay" onclick="if(event.target===this)this.classList.remove('open')">
@@ -113,6 +117,7 @@
 
   <div class="cl-date">April 6, 2026</div>
   <ul class="cl-list">
+    <li><span class="cl-tag cl-new">New</span> Buy Me a Coffee link added as alternative donation option</li>
     <li><span class="cl-tag cl-imp">Improved</span> Store Optimizer v2 — fair premium % (compares only categories a store carries), sort by coverage / price / premium, sidebar search to filter categories, 2-store combo recommendation, selection count badge</li>
   </ul>
 
@@ -171,7 +176,8 @@
 <footer>
   Aggregated from public retailer data
   &nbsp;|&nbsp; Updated every Monday
-  &nbsp;|&nbsp; <a href="https://ko-fi.com/cueeffeffdee" target="_blank" rel="noopener">☕ Support this project</a>
+  &nbsp;|&nbsp; <a href="https://buymeacoffee.com/qffdhruba" target="_blank" rel="noopener">☕ Buy me a coffee</a>
+  &nbsp;|&nbsp; <a href="https://ko-fi.com/cueeffeffdee" target="_blank" rel="noopener">☕ Ko-fi</a>
 </footer>
 <script>
 function toggleTheme(){
