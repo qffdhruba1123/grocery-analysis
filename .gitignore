@@ -1,0 +1,4 @@
+# Public branch (master) - only HTML for GitHub Pages
+# Everything ignored; git.py force-adds index.html + report
+*
+!.gitignore
