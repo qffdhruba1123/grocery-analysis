@@ -456,7 +456,7 @@ td { padding: 6px 10px; border-bottom: 1px solid var(--border); color: var(--fg)
 </div>
 <div class="filter-toast" id="filter-toast"></div>
 <h1>🛒 Weekly Grocery Deals — Week 15, 2026</h1>
-<div class="generated-ts">🕐 Generated April 07, 2026 at 17:19</div>
+<div class="generated-ts">🕐 Generated April 07, 2026 at 17:27</div>
 <div class="tabs">
   <button class="tab" data-tab="tab-global-search" onclick="showTab('tab-global-search',this)">🔍 <span class="tab-label">Search All</span></button>
   <button class="tab active" data-tab="tab-all-offers" onclick="showTab('tab-all-offers',this)">📋 <span class="tab-label">All Offers (1915)</span></button>
@@ -551,7 +551,8 @@ function _buildGlobalRows(){
     h+='</tr>';
   }
   tbody.innerHTML=h;
-  _slSyncButtons();
+  var ric=window.requestIdleCallback||function(cb){setTimeout(cb,50);};
+  ric(function(){_slSyncButtons(tbody);});
 }
 /* ── Client-side Non-Food tab builder ──────────────────────── */
 var _nonfoodBuilt=false;
@@ -597,12 +598,15 @@ function _buildNonfoodTab(){
     h+='</tbody></table></div></div></div>';
   }
   container.innerHTML=h;
-  _slSyncButtons();
+  var ric=window.requestIdleCallback||function(cb){setTimeout(cb,50);};
+  ric(function(){_slSyncButtons(container);});
 }
 function showTab(id,btn){
-  document.querySelectorAll('.tab-content').forEach(function(el){el.classList.remove('active');});
+  var cur=document.querySelector('.tab-content.active');
+  if(cur) cur.classList.remove('active');
   document.getElementById(id).classList.add('active');
-  document.querySelectorAll('.tab').forEach(function(el){el.classList.remove('active');});
+  var curBtn=document.querySelector('.tab.active');
+  if(curBtn) curBtn.classList.remove('active');
   btn.classList.add('active');
   // Lazy-build client-rendered tabs
   if(id==='tab-global-search') _buildGlobalRows();
@@ -889,12 +893,12 @@ function togglePriceChip(chip){
 }
 /* ── Active Now filter (all tabs) ─────────────────────────────── */
 var _activeNow={offers:true,nonfood:true,global:true};
+var _todayStr=new Date().toISOString().slice(0,10);
 function _isRowActive(tr){
-  var today=new Date().toISOString().slice(0,10);
   var vf=tr.getAttribute('data-valid-from')||'';
   var vt=tr.getAttribute('data-valid-to')||'';
-  if(vf&&vf>today) return false;
-  if(vt&&vt<today) return false;
+  if(vf&&vf>_todayStr) return false;
+  if(vt&&vt<_todayStr) return false;
   return true;
 }
 function toggleActiveNow(context){
@@ -1135,14 +1139,16 @@ function _slUpdateBadge(){
   badge.textContent=n;
   badge.classList.toggle('visible',n>0);
 }
-function _slSyncButtons(){
+function _slSyncButtons(scope){
   var items=_slLoad();
   var ids=items.map(function(it){return it.id;});
-  document.querySelectorAll('.add-btn,.smart-add-btn').forEach(function(btn){
+  var idSet={};
+  for(var i=0;i<ids.length;i++) idSet[ids[i]]=true;
+  (scope||document).querySelectorAll('.add-btn,.smart-add-btn').forEach(function(btn){
     var tr=btn.closest('tr');
     if(!tr) return;
     var id=_slId(tr.getAttribute('data-store')||'',tr.getAttribute('data-product')||'');
-    if(ids.indexOf(id)>=0){btn.classList.add('added');btn.textContent='✓';}
+    if(idSet[id]){btn.classList.add('added');btn.textContent='✓';}
     else{btn.classList.remove('added');btn.textContent='+';}
   });
 }
