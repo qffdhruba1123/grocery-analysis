@@ -456,7 +456,7 @@ td { padding: 6px 10px; border-bottom: 1px solid var(--border); color: var(--fg)
 </div>
 <div class="filter-toast" id="filter-toast"></div>
 <h1>🛒 Weekly Grocery Deals — Week 15, 2026</h1>
-<div class="generated-ts">🕐 Generated April 07, 2026 at 13:31</div>
+<div class="generated-ts">🕐 Generated April 07, 2026 at 13:33</div>
 <div class="tabs">
   <button class="tab" data-tab="tab-global-search" onclick="showTab('tab-global-search',this)">🔍 <span class="tab-label">Search All</span></button>
   <button class="tab active" data-tab="tab-all-offers" onclick="showTab('tab-all-offers',this)">📋 <span class="tab-label">All Offers (1604)</span></button>
@@ -707,7 +707,7 @@ function filterOffers(){
     if(searching){
       tr.style.display=m?'table-row':'none';
     } else {
-      if(!storeMatch){ tr.style.display='none'; }
+      if(!storeMatch||!activeMatch){ tr.style.display='none'; }
       else { tr.style.display=tr.classList.contains('extra-row')?'':'table-row'; m=tr.style.display!=='none'; }
     }
     if(m) shown++;
