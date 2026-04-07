@@ -94,84 +94,86 @@
 })()
 </script>
 </head><body>
-<button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark mode" aria-label="Toggle dark mode">≡ƒîÖ</button>
-<h1>≡ƒ¢Æ Weekly Munich Grocery Deals</h1>
-<p class="subtitle">Compare grocery prices across ALDI, Lidl, REWE, EDEKA, Kaufland, PENNY, Netto &amp; more ΓÇö updated every Monday.</p>
+<button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark mode" aria-label="Toggle dark mode">🌙</button>
+<h1>🛒 Weekly Munich Grocery Deals</h1>
+<p class="subtitle">Compare grocery prices across ALDI, Lidl, REWE, EDEKA, Kaufland, PENNY, Netto &amp; more — updated every Monday.</p>
 
-<a class="btn" href="report_W15_2026.html">≡ƒôä Open Week 15 / 2026 Report<small>1672 KB</small></a>
+<a class="btn" href="report_W15_2026.html">📄 Open Week 15 / 2026 Report<small>1766 KB</small></a>
 <br>
 <button class="changelog-btn" onclick="document.getElementById('changelog').classList.add('open')">
-  ≡ƒôï What's New &amp; Recent Updates
+  📋 What's New &amp; Recent Updates
 </button>
 <a class="bmc-btn" href="https://buymeacoffee.com/qffdhruba" target="_blank" rel="noopener">
-  Γÿò Buy me a coffee
+  ☕ Buy me a coffee
 </a>
 <a class="kofi-btn" href="https://ko-fi.com/cueeffeffdee" target="_blank" rel="noopener">
-  Γÿò Ko-fi
+  ☕ Ko-fi
 </a>
 
 <div id="changelog" class="changelog-overlay" onclick="if(event.target===this)this.classList.remove('open')">
 <div class="changelog-box">
   <button class="changelog-close" onclick="document.getElementById('changelog').classList.remove('open')">&times;</button>
-  <h2>≡ƒôï Feature Updates &amp; Fixes</h2>
+  <h2>📋 Feature Updates &amp; Fixes</h2>
 
   <div class="cl-date">April 7, 2026</div>
   <ul class="cl-list">
-    <li><span class="cl-tag cl-imp">Improved</span> Major W15 category expansion ΓÇö 30+ food categories updated with new keywords, added Lamm/Lamb food category and Werkzeug/Tools non-food category. Food classification up from 1695ΓåÆ2010 (+315), non-food "Other" reduced from 1145ΓåÆ543 (ΓêÆ602)</li>
-    <li><span class="cl-tag cl-fix">Fix</span> False-positive guards ΓÇö Wine no longer matches ham (Jam├│n/Reserva), Beef no longer matches wine (Merlot/Cabernet), Coffee excludes coffee machines &amp; plant drinks, Ice Cream excludes Magnum appliances</li>
-    <li><span class="cl-tag cl-new">New</span> "Active Now" filter button ΓÇö active by default, hides future/expired offers so you only see what's available today. Toggle off to see upcoming deals too</li>
-    <li><span class="cl-tag cl-imp">Improved</span> Bulk offer limit increased from 200 to 1000 per store ΓÇö captures all prospekt offers instead of a capped subset</li>
-    <li><span class="cl-tag cl-fix">Fix</span> Added "Thunfischfilet" search term ΓÇö canned tuna offers (e.g. Lidl) were missing from results</li>
+    <li><span class="cl-tag cl-fix">Fix</span> Price history sparklines no longer disappear when filtering offers — preserved across DOM updates</li>
+    <li><span class="cl-tag cl-imp">Improved</span> Tab switching performance — cached selectors, scoped sync, deferred idle callbacks for lazy-built tabs</li>
+    <li><span class="cl-tag cl-imp">Improved</span> Major W15 category expansion — 30+ food categories updated with new keywords, added Lamm/Lamb food category and Werkzeug/Tools non-food category. Food classification up from 1695→2010 (+315), non-food "Other" reduced from 1145→543 (−602)</li>
+    <li><span class="cl-tag cl-fix">Fix</span> False-positive guards — Wine no longer matches ham (Jamón/Reserva), Beef no longer matches wine (Merlot/Cabernet), Coffee excludes coffee machines &amp; plant drinks, Ice Cream excludes Magnum appliances</li>
+    <li><span class="cl-tag cl-new">New</span> "Active Now" filter button — active by default, hides future/expired offers so you only see what's available today. Toggle off to see upcoming deals too</li>
+    <li><span class="cl-tag cl-imp">Improved</span> Bulk offer limit increased from 200 to 1000 per store — captures all prospekt offers instead of a capped subset</li>
+    <li><span class="cl-tag cl-fix">Fix</span> Added "Thunfischfilet" search term — canned tuna offers (e.g. Lidl) were missing from results</li>
   </ul>
 
   <div class="cl-date">April 6, 2026</div>
   <ul class="cl-list">
-    <li><span class="cl-tag cl-imp">Improved</span> Major category audit ΓÇö fixed 63 misclassified products (RadlerhosenΓåÆBeer, WaffeleisenΓåÆSweets, FleischsalatΓåÆLettuce, Tomatengew├ñchshausΓåÆTomatoes, etc.), added 70+ new food keywords covering fish varieties, meat cuts, vegetables (asparagus, leek, edamame), spirits, and more</li>
-    <li><span class="cl-tag cl-new">New</span> Price history sparklines in All Offers ΓÇö each category header shows a mini trend chart of best Γé¼/unit across recent weeks, with a trend indicator (Γû▓/Γû╝/ΓÇò)</li>
+    <li><span class="cl-tag cl-imp">Improved</span> Major category audit — fixed 63 misclassified products (Radlerhosen→Beer, Waffeleisen→Sweets, Fleischsalat→Lettuce, Tomatengewächshaus→Tomatoes, etc.), added 70+ new food keywords covering fish varieties, meat cuts, vegetables (asparagus, leek, edamame), spirits, and more</li>
+    <li><span class="cl-tag cl-new">New</span> Price history sparklines in All Offers — each category header shows a mini trend chart of best €/unit across recent weeks, with a trend indicator (▲/▼/―)</li>
     <li><span class="cl-tag cl-new">New</span> Buy Me a Coffee link added as alternative donation option</li>
-    <li><span class="cl-tag cl-imp">Improved</span> Store Optimizer v2 ΓÇö fair premium % (compares only categories a store carries), sort by coverage / price / premium, sidebar search to filter categories, 2-store combo recommendation, selection count badge</li>
+    <li><span class="cl-tag cl-imp">Improved</span> Store Optimizer v2 — fair premium % (compares only categories a store carries), sort by coverage / price / premium, sidebar search to filter categories, 2-store combo recommendation, selection count badge</li>
   </ul>
 
   <div class="cl-date">April 5, 2026</div>
   <ul class="cl-list">
-    <li><span class="cl-tag cl-new">New</span> ≡ƒÅ¬ Store Optimizer tab ΓÇö select categories you want to buy and instantly see which single store covers the most at the best total price, with a convenience-vs-savings breakdown</li>
+    <li><span class="cl-tag cl-new">New</span> 🏪 Store Optimizer tab — select categories you want to buy and instantly see which single store covers the most at the best total price, with a convenience-vs-savings breakdown</li>
   </ul>
 
   <div class="cl-date">April 4, 2026</div>
   <ul class="cl-list">
-    <li><span class="cl-tag cl-fix">Fix</span> "Cheapest Only" &amp; best-row highlight now skip future offers ΓÇö only currently-available deals are highlighted</li>
-    <li><span class="cl-tag cl-new">New</span> GoatCounter analytics ΓÇö lightweight, privacy-friendly visit &amp; event tracking</li>
-    <li><span class="cl-tag cl-imp">Improved</span> Report size cut 57% ΓÇö Global Search &amp; Non-Food tabs now render client-side from JSON on demand</li>
+    <li><span class="cl-tag cl-fix">Fix</span> "Cheapest Only" &amp; best-row highlight now skip future offers — only currently-available deals are highlighted</li>
+    <li><span class="cl-tag cl-new">New</span> GoatCounter analytics — lightweight, privacy-friendly visit &amp; event tracking</li>
+    <li><span class="cl-tag cl-imp">Improved</span> Report size cut 57% — Global Search &amp; Non-Food tabs now render client-side from JSON on demand</li>
     <li><span class="cl-tag cl-imp">Improved</span> Added meta description &amp; Open Graph tags for better sharing on social/messaging</li>
-    <li><span class="cl-tag cl-fix">Fix</span> Browser tab now shows "Grocery Deals ΓÇö Week X" instead of a raw URL</li>
+    <li><span class="cl-tag cl-fix">Fix</span> Browser tab now shows "Grocery Deals — Week X" instead of a raw URL</li>
   </ul>
 
   <div class="cl-date">March 31, 2026</div>
   <ul class="cl-list">
-    <li><span class="cl-tag cl-new">New</span> Import/Export watchlist ΓÇö back up or transfer your watchlist as JSON between devices</li>
+    <li><span class="cl-tag cl-new">New</span> Import/Export watchlist — back up or transfer your watchlist as JSON between devices</li>
     <li><span class="cl-tag cl-new">New</span> Collapse/expand &amp; drag-to-reorder watchlist items</li>
-    <li><span class="cl-tag cl-new">New</span> Brand Watchlist tab ΓÇö add brands you care about, fuzzy-matched against all offers each week</li>
-    <li><span class="cl-tag cl-new">New</span> Γ¡É button on every offer row ΓÇö add to watchlist from any tab</li>
+    <li><span class="cl-tag cl-new">New</span> Brand Watchlist tab — add brands you care about, fuzzy-matched against all offers each week</li>
+    <li><span class="cl-tag cl-new">New</span> ⭐ button on every offer row — add to watchlist from any tab</li>
     <li><span class="cl-tag cl-new">New</span> Ko-fi donation link on landing page &amp; footer</li>
   </ul>
 </div>
 </div>
 
 <div class="guide">
-<h2>≡ƒôû Quick Guide</h2>
-<p>The report has <strong>four tabs</strong> ΓÇö your tab choice is saved in the URL so bookmarks keep your place:</p>
+<h2>📖 Quick Guide</h2>
+<p>The report has <strong>five tabs</strong> — your tab choice is saved in the URL so bookmarks keep your place:</p>
 <ol>
-  <li><span class="tab-name">≡ƒöì Search All</span> ΓÇö Search every offer by name, brand, or store. Click column headers to sort. Use store chips to filter.</li>
-  <li><span class="tab-name">≡ƒôï All Offers</span> ΓÇö All food deals grouped by category. Toggle <strong>≡ƒÑç Cheapest Only</strong> to see the best deal per category.</li>
-  <li><span class="tab-name">≡ƒÅ╖∩╕Å Non-Food</span> ΓÇö Household, beauty &amp; electronics deals. Filter by store or price range.</li>
-  <li><span class="tab-name">≡ƒÅ¬ Store Optimizer</span> ΓÇö Select the categories you want to buy and instantly see which single store covers the most items at the best total price. Compares single-store convenience against optimal cherry-picking.</li>
-  <li><span class="tab-name">Γ¡É Brand Watchlist</span> ΓÇö Track brands you care about (e.g. "Nutella"). Matching offers appear automatically each week, saved on your device.</li>
+  <li><span class="tab-name">🔍 Search All</span> — Search every offer by name, brand, or store. Click column headers to sort. Use store chips to filter.</li>
+  <li><span class="tab-name">📋 All Offers</span> — All food deals grouped by category. Toggle <strong>🥇 Cheapest Only</strong> to see the best deal per category.</li>
+  <li><span class="tab-name">🏷️ Non-Food</span> — Household, beauty &amp; electronics deals. Filter by store or price range.</li>
+  <li><span class="tab-name">🏪 Store Optimizer</span> — Select the categories you want to buy and instantly see which single store covers the most items at the best total price. Compares single-store convenience against optimal cherry-picking.</li>
+  <li><span class="tab-name">⭐ Brand Watchlist</span> — Track brands you care about (e.g. "Nutella"). Matching offers appear automatically each week, saved on your device.</li>
 </ol>
-<p><strong>≡ƒÆí Tips:</strong></p>
+<p><strong>💡 Tips:</strong></p>
 <ul>
-  <li>Click <strong>+</strong> on any offer to add it to your <strong>≡ƒ¢Æ shopping list</strong> (top-right drawer, grouped by store)</li>
+  <li>Click <strong>+</strong> on any offer to add it to your <strong>🛒 shopping list</strong> (top-right drawer, grouped by store)</li>
   <li>Green highlight = cheapest currently-available deal in that category</li>
-  <li>Use <strong>≡ƒîÖ/ΓÿÇ∩╕Å</strong> (top-right) to toggle dark mode</li>
+  <li>Use <strong>🌙/☀️</strong> (top-right) to toggle dark mode</li>
   <li>Works great on mobile</li>
 </ul>
 </div>
@@ -187,8 +189,8 @@
 <footer>
   Aggregated from public retailer data
   &nbsp;|&nbsp; Updated every Monday
-  &nbsp;|&nbsp; <a href="https://buymeacoffee.com/qffdhruba" target="_blank" rel="noopener">Γÿò Buy me a coffee</a>
-  &nbsp;|&nbsp; <a href="https://ko-fi.com/cueeffeffdee" target="_blank" rel="noopener">Γÿò Ko-fi</a>
+  &nbsp;|&nbsp; <a href="https://buymeacoffee.com/qffdhruba" target="_blank" rel="noopener">☕ Buy me a coffee</a>
+  &nbsp;|&nbsp; <a href="https://ko-fi.com/cueeffeffdee" target="_blank" rel="noopener">☕ Ko-fi</a>
 </footer>
 <script>
 function toggleTheme(){
@@ -197,11 +199,11 @@ function toggleTheme(){
   var next=cur==='dark'?'light':'dark';
   d.setAttribute('data-theme',next);
   localStorage.setItem('theme',next);
-  document.querySelector('.theme-toggle').textContent=next==='dark'?'ΓÿÇ∩╕Å':'≡ƒîÖ';
+  document.querySelector('.theme-toggle').textContent=next==='dark'?'☀️':'🌙';
 }
 (function(){
   var btn=document.querySelector('.theme-toggle');
-  if(btn) btn.textContent=document.documentElement.getAttribute('data-theme')==='dark'?'ΓÿÇ∩╕Å':'≡ƒîÖ';
+  if(btn) btn.textContent=document.documentElement.getAttribute('data-theme')==='dark'?'☀️':'🌙';
 })()
 </script>
 <script data-goatcounter="https://qffdmunichgrocery.goatcounter.com/count"
