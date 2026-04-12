@@ -6,6 +6,7 @@
 <meta property="og:description" content="Compare grocery prices across ALDI, Lidl, REWE, EDEKA, Kaufland, PENNY, Netto &amp; more in Munich this week.">
 <meta property="og:type" content="website">
 <link rel="dns-prefetch" href="https://www.google.com">
+<link rel="preconnect" href="https://gc.zgo.at" crossorigin>
 <style>
 
 :root {
@@ -26,8 +27,10 @@
   --blue-bg: #1e293b; --purple: #a78bfa;
   --input-bg: #1f2937; --card-bg: #1f2937;
 }
+html { scroll-behavior: smooth; }
 body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-       color: var(--fg); background: var(--bg); max-width: 800px; margin: 0 auto; padding: 16px; transition: background-color 0.3s; }
+       color: var(--fg); background: var(--bg); max-width: 800px; margin: 0 auto; padding: 16px;
+       transition: background-color 0.3s; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
 h1 { color: var(--green); font-size: clamp(18px, 4vw, 26px); } h2 { color: var(--fg2); border-bottom: 2px solid var(--border); padding-bottom: 6px; font-size: clamp(15px, 3.5vw, 20px); }
 table { border-collapse: collapse; width: 100%; margin: 12px 0; font-size: 13px; color: var(--fg); contain: layout style; }
 th { background: var(--bg3); padding: 8px 10px; text-align: left; border-bottom: 2px solid var(--border2); color: var(--fg); }
@@ -47,16 +50,18 @@ td { padding: 6px 10px; border-bottom: 1px solid var(--border); color: var(--fg)
 /* Scroll-to-top */
 .scroll-top { position: fixed; bottom: 24px; right: 24px; z-index: 100; width: 40px; height: 40px;
                border-radius: 50%; background: var(--green); color: #fff; border: none; cursor: pointer;
-               font-size: 20px; display: none; align-items: center; justify-content: center;
-               box-shadow: 0 2px 8px rgba(0,0,0,0.2); transition: opacity 0.3s, transform 0.3s; }
+               font-size: 20px; display: flex; align-items: center; justify-content: center;
+               box-shadow: 0 2px 8px rgba(0,0,0,0.2); opacity: 0; pointer-events: none;
+               transition: opacity 0.3s ease, transform 0.2s ease; will-change: opacity; }
 .scroll-top:hover { background: var(--green-dk); transform: scale(1.1); }
-.scroll-top.visible { display: flex; }
+.scroll-top.visible { opacity: 1; pointer-events: auto; }
 /* Filter toast */
-.filter-toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); z-index: 90;
+.filter-toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(8px); z-index: 90;
                 padding: 8px 20px; border-radius: 8px; background: var(--fg); color: var(--bg);
                 font-size: 12px; font-weight: 600; opacity: 0; pointer-events: none;
-                transition: opacity 0.3s; box-shadow: 0 4px 12px rgba(0,0,0,0.2); white-space: nowrap; }
-.filter-toast.visible { opacity: 1; pointer-events: auto; }
+                transition: opacity 0.25s ease, transform 0.25s ease; box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+                white-space: nowrap; will-change: opacity, transform; }
+.filter-toast.visible { opacity: 1; pointer-events: auto; transform: translateX(-50%) translateY(0); }
 /* Smooth expand/collapse */
 .parent-body { transition: max-height 0.3s ease, opacity 0.2s ease; overflow: hidden; }
 /* Clear-all link */
@@ -73,7 +78,8 @@ td { padding: 6px 10px; border-bottom: 1px solid var(--border); color: var(--fg)
 .tab:hover { background: var(--border); }
 .tab.active { background: var(--green); color: #fff; }
 .tab-content { display: none; padding-top: 8px; content-visibility: auto; contain-intrinsic-size: auto 5000px; }
-.tab-content.active { display: block; }
+.tab-content.active { display: block; animation: tabFadeIn 0.2s ease-out; }
+@keyframes tabFadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
 .search-box { margin: 16px 0; display: flex; align-items: center; gap: 12px; }
 .search-box input { flex: 1; padding: 10px 16px; border: 2px solid var(--border2); border-radius: 8px;
                      font-size: 14px; outline: none; transition: border 0.2s; min-width: 0;
@@ -182,13 +188,15 @@ td { padding: 6px 10px; border-bottom: 1px solid var(--border); color: var(--fg)
               align-items: center; justify-content: center; padding: 0 5px; line-height: 20px; }
 .cart-badge.visible { display: flex; }
 /* Shopping drawer */
-.cart-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 200; }
-.cart-overlay.open { display: block; }
-.cart-drawer { position: fixed; top: 0; right: -380px; width: 370px; max-width: 92vw; height: 100vh;
+.cart-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 200;
+                opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+.cart-overlay.open { opacity: 1; pointer-events: auto; }
+.cart-drawer { position: fixed; top: 0; right: 0; width: 370px; max-width: 92vw; height: 100vh;
                background: var(--bg); border-left: 1px solid var(--border); z-index: 201;
-               display: flex; flex-direction: column; transition: right 0.3s ease;
-               box-shadow: -4px 0 24px rgba(0,0,0,0.15); }
-.cart-drawer.open { right: 0; }
+               display: flex; flex-direction: column; transform: translateX(100%);
+               transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+               box-shadow: -4px 0 24px rgba(0,0,0,0.15); will-change: transform; }
+.cart-drawer.open { transform: translateX(0); }
 .cart-drawer-hdr { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex;
                     align-items: center; justify-content: space-between; flex-shrink: 0; }
 .cart-drawer-hdr h3 { margin: 0; font-size: 16px; color: var(--fg); }
@@ -356,6 +364,21 @@ td { padding: 6px 10px; border-bottom: 1px solid var(--border); color: var(--fg)
   .bw-summary-tbl th:nth-child(6), .bw-summary-tbl td:nth-child(6) { display: none; }
   .bw-drag-handle { display: none; }
 }
+/* Loading skeleton for lazy-built tabs */
+.tab-skeleton { padding: 24px 0; text-align: center; }
+.tab-skeleton-bar { height: 14px; border-radius: 6px; background: var(--bg3); margin: 10px auto;
+                     animation: skeletonPulse 1.2s ease-in-out infinite; }
+.tab-skeleton-bar:nth-child(1) { width: 70%; }
+.tab-skeleton-bar:nth-child(2) { width: 90%; }
+.tab-skeleton-bar:nth-child(3) { width: 60%; }
+.tab-skeleton-bar:nth-child(4) { width: 80%; }
+.tab-skeleton-bar:nth-child(5) { width: 50%; }
+@keyframes skeletonPulse { 0%,100% { opacity: 0.4; } 50% { opacity: 1; } }
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}
 /* ── Store Optimizer ─────────────────────────────────────────── */
 .so-layout { display: grid; grid-template-columns: 280px 1fr; gap: 20px; margin-top: 16px; }
 .so-sidebar { border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; background: var(--card-bg);
@@ -472,7 +495,7 @@ td { padding: 6px 10px; border-bottom: 1px solid var(--border); color: var(--fg)
 </div>
 <div class="filter-toast" id="filter-toast"></div>
 <h1>🛒 Weekly Grocery Deals — Week 15, 2026</h1>
-<div class="generated-ts">🕐 Generated April 12, 2026 at 22:13</div>
+<div class="generated-ts">🕐 Generated April 12, 2026 at 22:26</div>
 <div class="tabs">
   <button class="tab" data-tab="tab-global-search" onclick="showTab('tab-global-search',this)">🔍 <span class="tab-label">Search All</span></button>
   <button class="tab active" data-tab="tab-all-offers" onclick="showTab('tab-all-offers',this)">📋 <span class="tab-label">All Offers (2091)</span></button>
@@ -617,17 +640,26 @@ function _buildNonfoodTab(){
   var ric=window.requestIdleCallback||function(cb){setTimeout(cb,50);};
   ric(function(){_slSyncButtons(container);});
 }
+var _skeletonHtml='<div class="tab-skeleton"><div class="tab-skeleton-bar"></div><div class="tab-skeleton-bar"></div><div class="tab-skeleton-bar"></div><div class="tab-skeleton-bar"></div><div class="tab-skeleton-bar"></div></div>';
 function showTab(id,btn){
   var cur=document.querySelector('.tab-content.active');
   if(cur) cur.classList.remove('active');
-  document.getElementById(id).classList.add('active');
+  var target=document.getElementById(id);
+  target.classList.add('active');
   var curBtn=document.querySelector('.tab.active');
   if(curBtn) curBtn.classList.remove('active');
   btn.classList.add('active');
-  // Lazy-build client-rendered tabs
-  if(id==='tab-global-search') _buildGlobalRows();
-  if(id==='tab-nonfood') _buildNonfoodTab();
-  if(id==='tab-store-optimizer') _soInit();
+  // Show skeleton for lazy tabs that haven't been built yet, then build after paint
+  var needsBuild=(id==='tab-global-search'&&!_globalBuilt)||(id==='tab-nonfood'&&!_nonfoodBuilt)||(id==='tab-store-optimizer'&&!_soBuilt);
+  if(needsBuild){
+    var container=id==='tab-global-search'?document.getElementById('global-tbody'):(id==='tab-nonfood'?document.getElementById('nonfood-categories'):document.getElementById('so-categories'));
+    if(container&&!container.children.length){ container.innerHTML=_skeletonHtml; }
+    requestAnimationFrame(function(){
+      if(id==='tab-global-search') _buildGlobalRows();
+      if(id==='tab-nonfood') _buildNonfoodTab();
+      if(id==='tab-store-optimizer') _soInit();
+    });
+  }
   // Update URL hash
   var tabName=id.replace('tab-','');
   if(history.replaceState) history.replaceState(null,null,'#'+tabName);
@@ -649,16 +681,22 @@ function restoreTabFromHash(){
 window.addEventListener('hashchange',restoreTabFromHash);
 window.addEventListener('DOMContentLoaded',restoreTabFromHash);
 
-// Scroll-to-top button (passive + rAF throttled)
-var _scrollTicking=false;
+// Scroll-to-top button (passive + rAF throttled, cached ref)
+var _scrollTicking=false,_scrollBtn;
 window.addEventListener('scroll',function(){
   if(!_scrollTicking){_scrollTicking=true;requestAnimationFrame(function(){
-    var btn=document.querySelector('.scroll-top');
-    if(window.scrollY>400) btn.classList.add('visible');
-    else btn.classList.remove('visible');
+    if(!_scrollBtn) _scrollBtn=document.querySelector('.scroll-top');
+    if(window.scrollY>400) _scrollBtn.classList.add('visible');
+    else _scrollBtn.classList.remove('visible');
     _scrollTicking=false;
   });}
 },{passive:true});
+// Preload lazy tabs during idle time after initial render
+window.addEventListener('DOMContentLoaded',function(){
+  var ric=window.requestIdleCallback||function(cb){setTimeout(cb,2000);};
+  ric(function(){ _buildGlobalRows(); },{ timeout: 5000 });
+  ric(function(){ _buildNonfoodTab(); },{ timeout: 8000 });
+});
 
 // Filter toast
 var _toastTimer;
