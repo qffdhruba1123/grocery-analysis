@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Grocery Deals — Week 15, 2026 — Munich Price Comparison</title>
-<meta name="description" content="Week 15 2026: Compare 2091 food and 1318 non-food grocery deals across ALDI, Lidl, REWE, EDEKA, Kaufland, PENNY, Netto and more in Munich.">
-<meta property="og:title" content="Grocery Deals — Week 15, 2026">
-<meta property="og:description" content="Compare 2091+ grocery offers across ALDI, Lidl, REWE, EDEKA, Kaufland, PENNY &amp; more in Munich this week.">
+<title>Supermarkt Angebote München KW15 2026 — Preisvergleich ALDI, Lidl, REWE, EDEKA, Kaufland, PENNY</title>
+<meta name="description" content="KW15 2026: 2091 Lebensmittel- und 1318 Non-Food-Angebote vergleichen — ALDI, Lidl, REWE, EDEKA, Kaufland, PENNY, Netto u.v.m. in München. Kostenloser Preisvergleich, jeden Montag aktualisiert.">
+<meta property="og:title" content="Supermarkt Angebote München — KW15, 2026">
+<meta property="og:description" content="2091+ Angebote von ALDI, Lidl, REWE, EDEKA, Kaufland, PENNY u.v.m. in München diese Woche vergleichen.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://qffdhruba1123.github.io/grocery-analysis/report_W15_2026.html">
 <meta property="og:locale" content="de_DE">
@@ -14,11 +14,11 @@
 {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  "name": "Grocery Deals — Week 15, 2026",
+  "name": "Supermarkt Angebote München — KW15, 2026",
   "url": "https://qffdhruba1123.github.io/grocery-analysis/report_W15_2026.html",
-  "description": "Weekly grocery price comparison for Munich — 2091 food and 1318 non-food deals.",
+  "description": "Wöchentlicher Supermarkt-Preisvergleich München — 2091 Lebensmittel- und 1318 Non-Food-Angebote.",
   "inLanguage": ["de", "en"],
-  "isPartOf": { "@type": "WebSite", "name": "Weekly Munich Grocery Deals", "url": "https://qffdhruba1123.github.io/grocery-analysis/" },
+  "isPartOf": { "@type": "WebSite", "name": "Supermarkt Angebote München", "url": "https://qffdhruba1123.github.io/grocery-analysis/" },
   "about": { "@type": "Thing", "name": "Grocery price comparison", "description": "Compare weekly supermarket offers in Munich" }
 }
 </script>
@@ -479,6 +479,17 @@ td { padding: 6px 10px; border-bottom: 1px solid var(--border); color: var(--fg)
 .so-mode-btn:not(:last-child) { border-right: 1px solid var(--border2); }
 .so-mode-btn:hover { background: var(--bg3); }
 .so-mode-btn.active { background: var(--green); color: #fff; }
+/* Share bar */
+.share-bar { display: flex; align-items: center; gap: 8px; margin: 8px 0 12px; flex-wrap: wrap; }
+.share-bar-label { font-size: 12px; color: var(--fg4); font-weight: 600; }
+.share-btn { display: inline-flex; align-items: center; justify-content: center; gap: 5px;
+             padding: 6px 14px; border-radius: 8px; border: 1px solid var(--border);
+             background: var(--card-bg); color: var(--fg2); font-size: 12px; font-weight: 600;
+             cursor: pointer; text-decoration: none; transition: all 0.15s; white-space: nowrap; }
+.share-btn:hover { border-color: var(--green); color: var(--green); background: var(--green-bg); }
+.share-btn svg { width: 14px; height: 14px; fill: currentColor; flex-shrink: 0; }
+.share-toast { font-size: 11px; color: var(--green); font-weight: 600; opacity: 0; transition: opacity 0.3s; }
+.share-toast.visible { opacity: 1; }
 @media (max-width: 640px) {
   .so-layout { grid-template-columns: 1fr; }
   .so-sidebar { max-height: none; position: static; }
@@ -510,7 +521,7 @@ td { padding: 6px 10px; border-bottom: 1px solid var(--border); color: var(--fg)
 </div>
 <div class="filter-toast" id="filter-toast"></div>
 <h1>🛒 Weekly Grocery Deals — Week 15, 2026</h1>
-<div class="generated-ts">🕐 Generated April 12, 2026 at 22:54</div>
+<div class="generated-ts">🕐 Generated April 12, 2026 at 23:14</div>
 <div class="tabs">
   <button class="tab" data-tab="tab-global-search" onclick="showTab('tab-global-search',this)">🔍 <span class="tab-label">Search All</span></button>
   <button class="tab active" data-tab="tab-all-offers" onclick="showTab('tab-all-offers',this)">📋 <span class="tab-label">All Offers (2091)</span></button>
@@ -2053,7 +2064,27 @@ function toggleTheme(){{
   if(btn) btn.textContent=document.documentElement.getAttribute('data-theme')==='dark'?'☀️':'🌙';
 }})()
 </script>
-<hr style="margin-top:24px;border:none;border-top:1px solid var(--border)">
+<div class="share-bar">
+  <span class="share-bar-label">Share this report:</span>
+  <a class="share-btn" href="#" onclick="shareWA();return false" title="Share via WhatsApp" aria-label="Share via WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12.05 21.785h-.007a9.855 9.855 0 01-5.022-1.373l-.36-.214-3.738.981.998-3.648-.235-.374A9.86 9.86 0 012.162 12c0-5.455 4.436-9.89 9.899-9.89 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.456-4.44 9.893-9.893 9.893zm0-21.678C5.438.107.107 5.438.107 12.05a11.77 11.77 0 001.575 5.9L.057 23.893l6.085-1.597a11.79 11.79 0 005.633 1.436h.005c6.613 0 11.996-5.383 11.996-11.996C23.776 5.438 18.663.107 12.05.107z"/></svg>
+    WhatsApp
+  </a>
+  <a class="share-btn" href="#" onclick="shareTG();return false" title="Share via Telegram" aria-label="Share via Telegram">
+    <svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0 12 12 0 0011.944 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.492-1.302.48-.428-.013-1.252-.242-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+    Telegram
+  </a>
+  <a class="share-btn" href="#" onclick="shareX();return false" title="Share on X" aria-label="Share on X">
+    <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+    X
+  </a>
+  <button class="share-btn" onclick="copyShareLink()" title="Copy link" aria-label="Copy link">
+    <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+    Copy link
+  </button>
+  <span class="share-toast" id="share-toast"></span>
+</div>
+<hr style="margin-top:12px;border:none;border-top:1px solid var(--border)">
 <p style="color:var(--fg4);font-size:11px">
   Generated by Weekly Munich Grocery Deals scanner &nbsp;|&nbsp;
   Data: aggregated grocery offers &nbsp;|&nbsp; Edit preferences.json to customize
@@ -2061,6 +2092,14 @@ function toggleTheme(){{
 <script>
 // Restore tab from hash on page load
 (function(){{ restoreTabFromHash(); }})();
+
+// --- Share functions ---
+function _shareUrl(){{return window.location.href;}}
+function _shareText(){{return document.title+' — Free weekly grocery price comparison for Munich';}}
+function shareWA(){{window.open('https://wa.me/?text='+encodeURIComponent(_shareText()+' '+_shareUrl()),'_blank');_gc('share/whatsapp');}}
+function shareTG(){{window.open('https://t.me/share/url?url='+encodeURIComponent(_shareUrl())+'&text='+encodeURIComponent(_shareText()),'_blank');_gc('share/telegram');}}
+function shareX(){{window.open('https://x.com/intent/tweet?url='+encodeURIComponent(_shareUrl())+'&text='+encodeURIComponent(_shareText()),'_blank');_gc('share/x');}}
+function copyShareLink(){{navigator.clipboard.writeText(_shareUrl()).then(function(){{var t=document.getElementById('share-toast');t.textContent='✓ Link copied!';t.classList.add('visible');setTimeout(function(){{t.classList.remove('visible');}},2000);_gc('share/copy');}});}}
 </script>
 <script data-goatcounter="https://qffdmunichgrocery.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
