@@ -76,6 +76,12 @@
                text-decoration: none; transition: all 0.2s; margin-top: 8px; margin-left: 8px; }
   .kofi-btn:hover { background: #FF5E5B; color: #fff; border-color: #FF5E5B; }
   .bmc-btn:hover { background: #FFDD00; color: #000; border-color: #FFDD00; }
+  .feedback-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 18px;
+               border: 1px solid var(--border); border-radius: 8px; background: var(--card-bg);
+               cursor: pointer; font-size: 13px; font-weight: 600; color: var(--fg2);
+               text-decoration: none; transition: all 0.2s; margin-top: 8px; margin-left: 8px; }
+  .feedback-btn:hover { background: #dbeafe; color: #1e40af; border-color: #1e40af; }
+  [data-theme="dark"] .feedback-btn:hover { background: #1e3a5f; color: #93c5fd; border-color: #93c5fd; }
   .changelog-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5);
                          z-index: 200; justify-content: center; align-items: center; padding: 20px; }
   .changelog-overlay.open { display: flex; }
@@ -128,6 +134,9 @@
 <a class="kofi-btn" href="https://ko-fi.com/cueeffeffdee" target="_blank" rel="noopener">
   ☕ Ko-fi
 </a>
+<a class="feedback-btn" href="https://github.com/qffdhruba1123/grocery-analysis/issues/new?labels=feedback&title=Issue%3A+" target="_blank" rel="noopener">
+  🐛 Report an Issue
+</a>
 
 <div id="changelog" class="changelog-overlay" onclick="if(event.target===this)this.classList.remove('open')">
 <div class="changelog-box">
@@ -135,6 +144,7 @@
   <h2>📋 Feature Updates &amp; Fixes</h2>
 
   <ul class="cl-list">
+    <li><span class="cl-tag cl-new">New</span> Report an Issue — feedback link on index page and weekly report footer (via GitHub Issues)</li>
     <li><span class="cl-tag cl-new">New</span> Share buttons — send deals via WhatsApp, Telegram, X, or copy the link</li>
     <li><span class="cl-tag cl-new">New</span> Full SEO — German meta tags, Open Graph, JSON-LD, robots.txt, sitemap.xml, canonical URLs</li>
     <li><span class="cl-tag cl-new">New</span> "⚙️ Filters &amp; Options" toggle — store chips, price filters, and toolbar hidden by default</li>
@@ -144,7 +154,6 @@
     <li><span class="cl-tag cl-new">New</span> ⭐ Brand Watchlist — track brands with fuzzy matching, import/export, drag-to-reorder, edit in-place</li>
     <li><span class="cl-tag cl-imp">Improved</span> 150+ new food &amp; non-food keywords — classification rate up to 83%+</li>
     <li><span class="cl-tag cl-imp">Improved</span> Smooth animations — GPU-accelerated transitions, lazy tab prebuilding, loading skeletons</li>
-    <li><span class="cl-tag cl-imp">Improved</span> Report size cut 57% — Search All &amp; Non-Food tabs render client-side from JSON on demand</li>
   </ul>
 </div>
 </div>
@@ -181,6 +190,7 @@
   &nbsp;|&nbsp; Updated every Monday
   &nbsp;|&nbsp; <a href="https://buymeacoffee.com/qffdhruba" target="_blank" rel="noopener">☕ Buy me a coffee</a>
   &nbsp;|&nbsp; <a href="https://ko-fi.com/cueeffeffdee" target="_blank" rel="noopener">☕ Ko-fi</a>
+  &nbsp;|&nbsp; <a href="https://github.com/qffdhruba1123/grocery-analysis/issues/new?labels=feedback&title=Issue%3A+" target="_blank" rel="noopener">🐛 Report an Issue</a>
 </footer>
 <script>
 function toggleTheme(){
