@@ -312,7 +312,9 @@ td { padding: 6px 10px; border-bottom: 1px solid var(--border); color: var(--fg)
              cursor: pointer; font-size: 16px; transition: all 0.15s; flex-shrink: 0; }
 .bw-io-btn:hover { border-color: var(--green); background: var(--green-bg); }
 .bw-item { border: 1px solid var(--border); border-radius: 10px; margin-bottom: 12px; overflow: hidden;
-           background: var(--card-bg); }
+           background: var(--card-bg); scroll-margin-top: 12px; }
+.bw-item-flash { animation: bwFlash 1.2s ease; }
+@keyframes bwFlash { 0%,100% { background: var(--card-bg); } 30% { background: var(--green-bg); } }
 .bw-item-hdr { display: flex; align-items: center; gap: 8px; padding: 12px 16px; background: var(--bg3);
                border-bottom: 1px solid var(--border); user-select: none; }
 .bw-item[draggable='true'] { cursor: default; }
@@ -521,7 +523,7 @@ td { padding: 6px 10px; border-bottom: 1px solid var(--border); color: var(--fg)
 </div>
 <div class="filter-toast" id="filter-toast"></div>
 <h1>🛒 Weekly Grocery Deals — Week 38, 2026</h1>
-<div class="generated-ts">🕐 Generated September 14, 2026 at 12:55</div>
+<div class="generated-ts">🕐 Generated September 14, 2026 at 13:02</div>
 <div class="tabs">
   <button class="tab" data-tab="tab-global-search" onclick="showTab('tab-global-search',this)">🔍 <span class="tab-label">Search All</span></button>
   <button class="tab active" data-tab="tab-all-offers" onclick="showTab('tab-all-offers',this)">📋 <span class="tab-label">All Offers (2267)</span></button>
@@ -1306,6 +1308,15 @@ function bwToggleCollapse(idx){
   bwCollapsedSave(c);
   bwRender();
 }
+function bwJumpTo(idx){
+  var c=bwCollapsedLoad();
+  if(c[idx]){ c[idx]=false; bwCollapsedSave(c); bwRender(); }
+  var el=document.getElementById('bw-item-'+idx);
+  if(!el) return;
+  el.scrollIntoView({behavior:'smooth',block:'start'});
+  el.classList.add('bw-item-flash');
+  setTimeout(function(){el.classList.remove('bw-item-flash');},1200);
+}
 /* Import / Export */
 function bwExport(){
   var items=bwLoad();
@@ -1569,7 +1580,7 @@ function bwRender(){
       var bp=d.best&&d.best.p!=null?'€'+d.best.p.toFixed(2):'—';
       var ppu=d.best&&d.best.ppu!=null?'€'+d.best.ppu.toFixed(2)+(d.best.nu?'/'+d.best.nu.replace('€/',''):''):'—';
       var store=d.best?_slEnc(_stores[d.best.si]):'—';
-      sh+='<tr onclick="bwToggleCollapse('+d.idx+');" style="cursor:pointer">';
+      sh+='<tr onclick="bwJumpTo('+d.idx+');" style="cursor:pointer">';
       sh+='<td>⭐</td>';
       sh+='<td>'+_slEnc(d.name)+'</td>';
       sh+='<td class="bw-summary-price">'+bp+'</td>';
@@ -1588,7 +1599,7 @@ function bwRender(){
     var bestPpu=d.best&&d.best.ppu!=null?'€'+d.best.ppu.toFixed(2)+(d.best.nu?'/'+d.best.nu.replace('€/',''):''):'';
     var bestPrice=d.best&&d.best.p!=null?'€'+d.best.p.toFixed(2):'';
     var bestStore=d.best?_slEnc(_stores[d.best.si]):'';
-    html+='<div class="bw-item" draggable="true" ondragstart="bwDragStart(event,'+idx+')" ondragend="bwDragEnd(event)" ondragover="bwDragOver(event)" ondrop="bwDrop(event,'+idx+')">';
+    html+='<div class="bw-item" id="bw-item-'+idx+'" draggable="true" ondragstart="bwDragStart(event,'+idx+')" ondragend="bwDragEnd(event)" ondragover="bwDragOver(event)" ondrop="bwDrop(event,'+idx+')">';
     html+='<div class="bw-item-hdr" onclick="bwToggleCollapse('+idx+')" style="cursor:pointer">';
     html+='<span class="bw-drag-handle" title="Drag to reorder">⠿</span>';
     html+='<span class="bw-collapse-icon">'+(isCollapsed?'▶':'▼')+'</span>';
