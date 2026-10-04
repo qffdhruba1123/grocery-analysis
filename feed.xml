@@ -5,13 +5,20 @@
   <link>https://qffdhruba1123.github.io/grocery-analysis/</link>
   <description>Weekly supermarket price comparison for Munich — ALDI, Lidl, REWE, EDEKA, Kaufland, PENNY and more.</description>
   <language>de-de</language>
-  <lastBuildDate>Thu, 01 Oct 2026 07:04:17 +0000</lastBuildDate>
+  <lastBuildDate>Sun, 04 Oct 2026 22:02:26 +0000</lastBuildDate>
+  <item>
+    <title>Week 41, 2026 — Munich Grocery Deals</title>
+    <link>https://qffdhruba1123.github.io/grocery-analysis/report_W41_2026.html</link>
+    <guid isPermaLink="true">https://qffdhruba1123.github.io/grocery-analysis/report_W41_2026.html</guid>
+    <pubDate>Mon, 05 Oct 2026 08:00:00 +0000</pubDate>
+    <description>56 great deals out of 94 tracked categories.</description>
+  </item>
   <item>
     <title>Week 40, 2026 — Munich Grocery Deals</title>
     <link>https://qffdhruba1123.github.io/grocery-analysis/report_W40_2026.html</link>
     <guid isPermaLink="true">https://qffdhruba1123.github.io/grocery-analysis/report_W40_2026.html</guid>
     <pubDate>Mon, 28 Sep 2026 08:00:00 +0000</pubDate>
-    <description>55 great deals out of 90 tracked categories.</description>
+    <description>Weekly supermarket price comparison for Munich.</description>
   </item>
   <item>
     <title>Week 39, 2026 — Munich Grocery Deals</title>
@@ -102,13 +109,6 @@
     <link>https://qffdhruba1123.github.io/grocery-analysis/report_W27_2026.html</link>
     <guid isPermaLink="true">https://qffdhruba1123.github.io/grocery-analysis/report_W27_2026.html</guid>
     <pubDate>Mon, 29 Jun 2026 08:00:00 +0000</pubDate>
-    <description>Weekly supermarket price comparison for Munich.</description>
-  </item>
-  <item>
-    <title>Week 26, 2026 — Munich Grocery Deals</title>
-    <link>https://qffdhruba1123.github.io/grocery-analysis/report_W26_2026.html</link>
-    <guid isPermaLink="true">https://qffdhruba1123.github.io/grocery-analysis/report_W26_2026.html</guid>
-    <pubDate>Mon, 22 Jun 2026 08:00:00 +0000</pubDate>
     <description>Weekly supermarket price comparison for Munich.</description>
   </item>
 </channel>
