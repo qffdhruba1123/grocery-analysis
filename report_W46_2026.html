@@ -38,11 +38,11 @@
 :root {
   color-scheme: light;
   --page: #f5f7f9; --bg: #ffffff; --bg1: #ffffff; --bg2: #f8fafc; --bg3: #f1f5f9; --bg4: #eef6ff;
-  --fg: #0f172a; --fg1: #0f172a; --fg2: #334155; --fg3: #64748b; --fg4: #94a3b8;
+  --fg: #0f172a; --fg1: #0f172a; --fg2: #334155; --fg3: #5b6577; --fg4: #667185;
   --border: #e5e9f0; --border2: #d3dae4;
-  --green: #059669; --green-dk: #047857; --green-bg: #ecfdf5; --green-bg2: #d1fae5;
+  --green: #047857; --green-dk: #065f46; --green-bg: #ecfdf5; --green-bg2: #d1fae5;
   --on-accent: #ffffff;
-  --yellow: #b45309; --yellow-bg: #fffbeb; --red: #dc2626; --red-bg: #fef2f2;
+  --yellow: #a1460a; --yellow-bg: #fffbeb; --red: #c62828; --red-bg: #fef2f2;
   --blue: #2563eb; --blue-bg: #eff6ff; --purple: #7c3aed; --purple-bg: #f5f3ff;
   --input-bg: #ffffff; --card-bg: #ffffff; --hdr-bg: rgba(245,247,249,0.94);
   --shadow-sm: 0 1px 2px rgba(15,23,42,0.05), 0 1px 3px rgba(15,23,42,0.04);
@@ -56,7 +56,7 @@
 [data-theme="dark"] {
   color-scheme: dark;
   --page: #0a0f15; --bg: #121a23; --bg1: #121a23; --bg2: #16202b; --bg3: #1c2734; --bg4: #172638;
-  --fg: #e8eef5; --fg1: #e8eef5; --fg2: #c5d0dc; --fg3: #8d9aab; --fg4: #627083;
+  --fg: #e8eef5; --fg1: #e8eef5; --fg2: #c5d0dc; --fg3: #8d9aab; --fg4: #7a8799;
   --border: #222e3c; --border2: #2e3c4e;
   --green: #34d399; --green-dk: #6ee7b7; --green-bg: rgba(52,211,153,0.09); --green-bg2: rgba(52,211,153,0.17);
   --on-accent: #04261a;
@@ -70,7 +70,7 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; scroll-padding-top: calc(var(--hdr-h) + 12px); }
 body { font-family: var(--font); color: var(--fg); background: var(--page); margin: 0 auto;
        line-height: 1.5; -webkit-font-smoothing: antialiased; touch-action: manipulation;
        -webkit-tap-highlight-color: transparent; }
@@ -545,6 +545,22 @@ tbody tr:last-child td { border-bottom: none; }
 .footer-meta { margin: 14px 0 0; padding-top: 12px; border-top: 1px solid var(--border); color: var(--fg4); font-size: 12px;
                display: flex; flex-wrap: wrap; gap: 6px 14px; }
 /* ── Responsive ── */
+/* An open filter panel scrolls with the page, so it never covers the results */
+.sticky-search:has(.filter-options.open) { position: relative; top: auto; }
+.tab { min-height: 40px; }
+/* Tablets: short tab labels so all five fit without a scrolling strip */
+@media (min-width: 641px) and (max-width: 920px) {
+  .tab { padding: 9px 8px; gap: 6px; }
+  .tab-label { display: none; }
+  .tab-short { display: inline; }
+}
+/* Short screens (landscape phones): only the search bar stays pinned */
+@media (max-height: 500px) {
+  .app-bar { position: relative; }
+  html { scroll-padding-top: 12px; }
+  .sticky-search { top: 0; }
+  .so-sidebar { top: 16px; max-height: calc(100vh - 32px); }
+}
 @media (max-width: 760px) {
   .so-layout { grid-template-columns: 1fr; }
   .so-sidebar { max-height: 55vh; position: static; }
@@ -554,6 +570,7 @@ tbody tr:last-child td { border-bottom: none; }
 }
 @media (max-width: 640px) {
   :root { --hdr-h: 54px; }
+  html { scroll-padding-bottom: calc(84px + env(safe-area-inset-bottom)); }
   body { padding: 0 12px calc(84px + env(safe-area-inset-bottom)); font-size: 13.5px; }
   .brand-name { font-size: 14px; }
   .week-pill { display: none; }
@@ -637,7 +654,7 @@ tbody tr:last-child td { border-bottom: none; }
 <div class="filter-toast" id="filter-toast" role="status" aria-live="polite"></div>
 <section class="hero">
   <h1>Weekly Grocery Deals <span class="accent">Week 46, 2026</span></h1>
-  <div class="generated-ts"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Generated November 12, 2026 at 15:38</div>
+  <div class="generated-ts"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Generated November 12, 2026 at 16:48</div>
   <div class="hero-stats">
     <span class="stat"><b>1,965</b> food offers</span>
     <span class="stat"><b>1,642</b> non-food</span>
@@ -1654,7 +1671,7 @@ function bwEdit(idx){
   inp.type='text';inp.className='bw-edit-input';inp.value=name;
   inp.addEventListener('keydown',function(e){
     if(e.key==='Enter'){e.preventDefault();bwEditSave(idx,inp);}
-    if(e.key==='Escape'){e.preventDefault();bwEditCancel();}
+    if(e.key==='Escape'){e.preventDefault();inp.setAttribute('data-saved','1');bwEditCancel();}
   });
   inp.addEventListener('blur',function(){bwEditSave(idx,inp);});
   nameEl.innerHTML='';nameEl.appendChild(inp);
